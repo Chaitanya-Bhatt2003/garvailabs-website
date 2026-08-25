@@ -22,6 +22,7 @@ function path(values: number[], w: number, h: number, max: number) {
 }
 
 const W = 300;
+const PAD = 4; // room for the end dot, which would otherwise clip at the edge
 const H = 74;
 const MAX = 104;
 const line = path(series, W, H, MAX);
@@ -41,11 +42,11 @@ export function ProductMock() {
       {/* app bar */}
       <div className="flex items-center justify-between border-b border-line px-4 py-3">
         <div className="flex items-center gap-2.5">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-accent-soft">
-            <svg width="12" height="12" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-              <path d="M7 19 L13 8.5 L19 19" stroke="var(--accent-text)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M9.9 14.4 H16.1" stroke="var(--accent-text)" strokeWidth="2.6" strokeLinecap="round" />
-            </svg>
+          <span
+            aria-hidden="true"
+            className="flex h-6 w-6 items-center justify-center rounded-md bg-accent font-display text-sm font-bold leading-none text-on-accent"
+          >
+            g
           </span>
           <span className="text-sm font-semibold">Agent Control</span>
         </div>
@@ -76,7 +77,7 @@ export function ProductMock() {
             {[
               { k: "Finished today", v: "412" },
               { k: "With a human", v: "6" },
-              { k: "Avg. first reply", v: "38s" },
+              { k: "First reply", v: "38s" },
             ].map((s) => (
               <div key={s.k} className="rounded-card border border-line bg-bg px-3 py-2.5">
                 <p className="truncate text-2xs uppercase tracking-[0.1em] text-muted">{s.k}</p>
@@ -92,7 +93,7 @@ export function ProductMock() {
               <p className="num text-xs text-muted">+41% this month</p>
             </div>
             <svg
-              viewBox={`0 0 ${W} ${H + 6}`}
+              viewBox={`0 0 ${W + PAD} ${H + 6}`}
               className="w-full"
               role="img"
               aria-label="Chart showing cases closed by agents rising steadily over twelve weeks"
@@ -110,7 +111,7 @@ export function ProductMock() {
                   x2={W}
                   y1={(H / 2) * i}
                   y2={(H / 2) * i}
-                  stroke="rgba(15,18,16,0.06)"
+                  stroke="var(--border)"
                   strokeWidth="1"
                 />
               ))}

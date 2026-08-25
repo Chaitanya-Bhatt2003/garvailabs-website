@@ -8,10 +8,10 @@ const base =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-medium transition-[background-color,border-color,color,transform] duration-200 ease-out active:translate-y-px";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-on-accent font-semibold hover:bg-[#25b988]",
+  primary: "bg-accent text-on-accent font-semibold hover:bg-accent-hover",
   outline: "border border-line-strong text-text hover:bg-soft",
   dark: "bg-dark text-dark-text font-medium hover:bg-dark-soft",
-  onDark: "bg-accent text-on-accent font-semibold hover:bg-[#25b988]",
+  onDark: "bg-accent text-on-accent font-semibold hover:bg-accent-hover",
 };
 
 export function Cta({
