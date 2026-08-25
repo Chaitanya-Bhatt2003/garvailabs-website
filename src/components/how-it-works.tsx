@@ -7,7 +7,7 @@ export function HowItWorks() {
       <div className="shell">
         <Rise className="max-w-2xl">
           <p className="eyebrow">How we work</p>
-          <h2 className="mt-5 text-3xl md:text-4xl">Four steps, in this order, every time.</h2>
+          <h2 className="mt-5 text-4xl">Four steps, in this order, every time.</h2>
           <p className="mt-5 max-w-[52ch] text-md text-muted">
             We have not found a shortcut past any of them. Skipping the scoping step is how
             projects quietly go wrong in month two.

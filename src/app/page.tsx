@@ -26,7 +26,7 @@ export default function Home() {
           <div className="grid gap-8 sm:grid-cols-3 sm:gap-10">
             {proof.map((p, i) => (
               <Rise key={p.value} delay={i * 0.06}>
-                <p className="num text-4xl leading-none text-accent-text md:text-5xl">{p.value}</p>
+                <p className="num text-5xl leading-none text-accent-text">{p.value}</p>
                 <p className="mt-3 max-w-[26ch] text-base leading-snug text-muted">{p.label}</p>
               </Rise>
             ))}
@@ -48,7 +48,7 @@ export default function Home() {
         <div className="shell">
           <Rise className="max-w-2xl">
             <p className="eyebrow">Services</p>
-            <h2 className="mt-5 text-3xl md:text-4xl">Six ways we take work off your team.</h2>
+            <h2 className="mt-5 text-4xl">Six ways we take work off your team.</h2>
             <p className="mt-5 max-w-[52ch] text-md text-muted">
               From AI agents that finish a case end to end, to the software, apps and search
               visibility around them.
@@ -66,7 +66,7 @@ export default function Home() {
         <div className="shell">
           <Rise className="max-w-2xl">
             <p className="eyebrow">Selected work</p>
-            <h2 className="mt-5 text-3xl md:text-4xl">Systems running in the field.</h2>
+            <h2 className="mt-5 text-4xl">Systems running in the field.</h2>
             <p className="mt-5 max-w-[52ch] text-md text-muted">
               Offline seed grading in rural procurement centres, a RAG assistant inside a dental
               EHR, object recognition for US permitting departments.
@@ -95,7 +95,7 @@ export default function Home() {
         <div className="shell grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <Rise>
             <p className="eyebrow">About</p>
-            <h2 className="mt-5 text-3xl md:text-4xl">A small team in Kashipur, Uttarakhand.</h2>
+            <h2 className="mt-5 text-4xl">A small team in Kashipur, Uttarakhand.</h2>
           </Rise>
           <Rise delay={0.08}>
             <div className="flex flex-col gap-5 text-base leading-relaxed text-muted md:text-md">

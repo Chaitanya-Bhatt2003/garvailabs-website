@@ -18,14 +18,14 @@ const agenda = [
 
 export default function ContactPage() {
   return (
-    <section className="pb-24 pt-28 md:pb-32 md:pt-40">
+    <section className="page-top pb-24 md:pb-32">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div>
           <Rise>
             <p className="eyebrow">Contact</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-6 max-w-[15ch] text-4xl leading-[1.05] md:text-5xl">
+            <h1 className="mt-6 max-w-[15ch] text-5xl leading-[1.05]">
               Tell us the workflow.
             </h1>
           </Rise>

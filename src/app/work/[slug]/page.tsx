@@ -33,7 +33,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <>
-      <section className="pt-28 md:pt-40">
+      <section className="page-top">
         <div className="shell">
           <Rise>
             <Link
@@ -49,7 +49,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="eyebrow mt-6">{study.sector}</p>
           </Rise>
           <Rise delay={0.1}>
-            <h1 className="mt-4 max-w-[22ch] text-3xl leading-[1.06] sm:text-4xl lg:text-5xl">
+            <h1 className="mt-4 max-w-[22ch] text-5xl leading-[1.06]">
               {study.title}
             </h1>
           </Rise>
@@ -62,7 +62,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <dl className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
               {study.results.map((r) => (
                 <div key={r.label} className="bg-surface p-6 md:p-7">
-                  <dt className="num text-3xl leading-none text-accent-text md:text-4xl">
+                  <dt className="num text-4xl leading-none text-accent-text">
                     {r.value}
                   </dt>
                   <dd className="mt-3 text-base leading-snug text-muted">{r.label}</dd>
@@ -76,7 +76,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="band">
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <Rise>
-            <h2 className="text-2xl md:text-3xl">The problem</h2>
+            <h2 className="text-3xl">The problem</h2>
             <ul className="mt-7 flex flex-col gap-4">
               {study.problem.map((p) => (
                 <li key={p} className="flex gap-3.5 text-base leading-relaxed text-muted md:text-md">
@@ -91,7 +91,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </Rise>
 
           <Rise delay={0.08}>
-            <h2 className="text-2xl md:text-3xl">What we built</h2>
+            <h2 className="text-3xl">What we built</h2>
             <ul className="mt-7 flex flex-col gap-4">
               {study.solution.map((s) => (
                 <li key={s} className="flex gap-3.5 text-base leading-relaxed text-muted md:text-md">
@@ -109,7 +109,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="band border-t border-line bg-soft">
         <div className="shell">
           <Rise>
-            <h2 className="text-2xl md:text-3xl">Technology</h2>
+            <h2 className="text-3xl">Technology</h2>
             <ul className="mt-7 flex flex-wrap gap-2.5">
               {study.tech.map((t) => (
                 <li
@@ -127,7 +127,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="band">
         <div className="shell">
           <Rise>
-            <h2 className="text-2xl md:text-3xl">More work</h2>
+            <h2 className="text-3xl">More work</h2>
           </Rise>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {others.map((c, i) => (
@@ -156,7 +156,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="band bg-dark">
         <div className="shell">
           <Rise className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl text-dark-text md:text-4xl">Have a problem shaped like this?</h2>
+            <h2 className="text-4xl text-dark-text">Have a problem shaped like this?</h2>
             <p className="mx-auto mt-5 max-w-[46ch] text-md leading-relaxed text-dark-muted">
               Tell us the workflow and the constraints it runs under. We will tell you whether it is
               worth building.

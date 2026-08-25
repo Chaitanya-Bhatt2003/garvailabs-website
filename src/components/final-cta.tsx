@@ -11,7 +11,7 @@ export function FinalCta() {
           <p className="text-2xs font-semibold uppercase tracking-[0.18em] text-dark-muted">
             Start here
           </p>
-          <h2 className="mt-6 text-3xl text-dark-text md:text-5xl">
+          <h2 className="mt-6 text-5xl text-dark-text">
             Bring the process you keep doing by hand.
           </h2>
           <p className="mx-auto mt-6 max-w-[48ch] text-md leading-relaxed text-dark-muted">

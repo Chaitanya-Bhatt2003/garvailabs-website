@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default function WorkIndex() {
   return (
     <>
-      <section className="pt-28 md:pt-40">
+      <section className="page-top">
         <div className="shell">
           <Rise>
             <p className="eyebrow">Work</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[18ch] text-4xl leading-[1.05] md:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-[18ch] text-6xl leading-[1.05]">
               Systems running in the field.
             </h1>
           </Rise>
@@ -44,7 +44,7 @@ export default function WorkIndex() {
                 >
                   <div>
                     <p className="eyebrow">{c.sector}</p>
-                    <h2 className="mt-4 max-w-[24ch] text-2xl leading-[1.15] md:text-3xl">
+                    <h2 className="mt-4 max-w-[24ch] text-3xl leading-[1.15]">
                       {c.title}
                     </h2>
                     <p className="mt-4 max-w-[62ch] text-base leading-relaxed text-muted md:text-md">
@@ -62,7 +62,7 @@ export default function WorkIndex() {
                   </div>
 
                   <div className="rounded-card border border-line bg-soft p-6 lg:p-7">
-                    <p className="num text-4xl leading-none text-accent-text md:text-5xl">
+                    <p className="num text-5xl leading-none text-accent-text">
                       {c.headline.value}
                     </p>
                     <p className="mt-3 text-base leading-snug text-muted">{c.headline.label}</p>

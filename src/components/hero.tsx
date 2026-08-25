@@ -6,11 +6,11 @@ import { ProductMock } from "@/components/product-mock";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 md:pt-40">
-      <div className="shell grid items-center gap-14 pb-20 md:pb-28 lg:grid-cols-[1fr_1.02fr] lg:gap-20 lg:pb-36">
-        <div>
+    <section className="page-top relative overflow-hidden">
+      <div className="shell grid items-center gap-14 pb-20 md:pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] lg:gap-20 lg:pb-36">
+        <div className="min-w-0">
           <Rise>
-            <h1 className="text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
+            <h1 className="text-6xl leading-[1.04]">
               Intelligence that <span className="text-accent-text">finishes the work.</span>
             </h1>
           </Rise>
@@ -37,7 +37,7 @@ export function Hero() {
           </Rise>
         </div>
 
-        <Rise delay={0.16} className="lg:pl-4">
+        <Rise delay={0.16} className="min-w-0 lg:pl-4">
           <ProductMock />
         </Rise>
       </div>

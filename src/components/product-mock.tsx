@@ -40,7 +40,7 @@ export function ProductMock() {
   return (
     <div className="overflow-hidden rounded-lg border border-line bg-surface">
       {/* app bar */}
-      <div className="flex items-center justify-between border-b border-line px-4 py-3">
+      <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-3 sm:px-4">
         <div className="flex items-center gap-2.5">
           <span
             aria-hidden="true"
@@ -50,9 +50,9 @@ export function ProductMock() {
           </span>
           <span className="text-sm font-semibold">Agent Control</span>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-2xs font-semibold text-accent-text">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-          4 agents running
+        <span className="inline-flex min-w-0 shrink items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-2xs font-semibold text-accent-text">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+          <span className="truncate">4 agents running</span>
         </span>
       </div>
 
@@ -71,16 +71,16 @@ export function ProductMock() {
           ))}
         </aside>
 
-        <div className="min-w-0 flex-1 p-4">
+        <div className="min-w-0 flex-1 p-3 sm:p-4">
           {/* stat row */}
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
             {[
-              { k: "Finished today", v: "412" },
+              { k: "Done today", v: "412" },
               { k: "With a human", v: "6" },
               { k: "First reply", v: "38s" },
             ].map((s) => (
-              <div key={s.k} className="rounded-card border border-line bg-bg px-3 py-2.5">
-                <p className="truncate text-2xs uppercase tracking-[0.1em] text-muted">{s.k}</p>
+              <div key={s.k} className="min-w-0 rounded-card border border-line bg-bg px-2.5 py-2.5 sm:px-3">
+                <p className="text-2xs uppercase leading-tight tracking-[0.08em] text-muted">{s.k}</p>
                 <p className="num mt-1 text-xl">{s.v}</p>
               </div>
             ))}

@@ -43,13 +43,13 @@ const sectors = [
 export default function AboutPage() {
   return (
     <>
-      <section className="pt-28 md:pt-40">
+      <section className="page-top">
         <div className="shell">
           <Rise>
             <p className="eyebrow">About</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[20ch] text-4xl leading-[1.05] md:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-[20ch] text-6xl leading-[1.05]">
               We build AI-native systems that do the work.
             </h1>
           </Rise>
@@ -67,7 +67,7 @@ export default function AboutPage() {
       <section className="band">
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <Rise>
-            <h2 className="text-3xl md:text-4xl">What we actually do</h2>
+            <h2 className="text-4xl">What we actually do</h2>
             <div className="mt-7 flex flex-col gap-5 text-base leading-relaxed text-muted md:text-md">
               <p>
                 Most of our projects start the same way: somebody is doing something by hand,
@@ -118,7 +118,7 @@ export default function AboutPage() {
       <section className="band border-t border-line bg-soft">
         <div className="shell">
           <Rise className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl">How we work</h2>
+            <h2 className="text-4xl">How we work</h2>
           </Rise>
           <div className="mt-10 grid gap-4 md:mt-12 sm:grid-cols-2">
             {principles.map((p, i) => (
@@ -137,7 +137,7 @@ export default function AboutPage() {
       <section className="band">
         <div className="shell grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
           <Rise>
-            <h2 className="text-2xl md:text-3xl">What we offer</h2>
+            <h2 className="text-3xl">What we offer</h2>
             <ul className="mt-7 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
               {services.map((s) => (
                 <li key={s.slug}>
@@ -156,7 +156,7 @@ export default function AboutPage() {
           </Rise>
 
           <Rise delay={0.08}>
-            <h2 className="text-2xl md:text-3xl">Where to find us</h2>
+            <h2 className="text-3xl">Where to find us</h2>
             <ul className="mt-7 flex flex-col gap-4 text-base md:text-md">
               <li>
                 <a

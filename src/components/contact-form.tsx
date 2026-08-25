@@ -87,7 +87,7 @@ export function ContactForm() {
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft text-accent-text">
           <MailOpen size={19} aria-hidden="true" />
         </span>
-        <h2 className="mt-6 text-2xl md:text-3xl">Almost sent, {fields.name.split(" ")[0]}.</h2>
+        <h2 className="mt-6 text-3xl">Almost sent, {fields.name.split(" ")[0]}.</h2>
         <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-muted">
           Your email app should have opened with the request already written.{" "}
           <span className="text-text">Press send there</span> and it reaches us — this page has no

@@ -37,7 +37,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* hero */}
-      <section className="pt-28 md:pt-40">
+      <section className="page-top">
         <div className="shell">
           <Rise>
             <Link
@@ -60,7 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <p className="eyebrow mt-6">{service.name}</p>
               </Rise>
               <Rise delay={0.14}>
-                <h1 className="mt-4 max-w-[18ch] text-3xl leading-[1.06] sm:text-4xl lg:text-5xl">
+                <h1 className="mt-4 max-w-[18ch] text-5xl leading-[1.06]">
                   {service.headline}
                 </h1>
               </Rise>
@@ -101,7 +101,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="band">
         <div className="shell">
           <Rise className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl">What this includes</h2>
+            <h2 className="text-4xl">What this includes</h2>
           </Rise>
           <div className="mt-10 grid gap-4 md:mt-12 sm:grid-cols-2">
             {service.offerings.map((o, i) => (
@@ -120,7 +120,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="band border-t border-line bg-soft">
         <div className="shell">
           <Rise className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl">How we run it</h2>
+            <h2 className="text-4xl">How we run it</h2>
           </Rise>
           <ol className="mt-10 grid gap-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {service.process.map((p, i) => (
@@ -141,7 +141,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="band">
           <div className="shell">
             <Rise className="max-w-2xl">
-              <h2 className="text-3xl md:text-4xl">Where we have done this</h2>
+              <h2 className="text-4xl">Where we have done this</h2>
             </Rise>
             <div className="mt-10 grid gap-4 md:mt-12 lg:grid-cols-3">
               {related.map((c, i) => (
@@ -174,7 +174,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="band border-t border-line">
         <div className="shell">
           <Rise>
-            <h2 className="text-2xl md:text-3xl">Other services</h2>
+            <h2 className="text-3xl">Other services</h2>
           </Rise>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {others.map((s, i) => (
@@ -201,7 +201,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="band bg-dark">
         <div className="shell">
           <Rise className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl text-dark-text md:text-4xl">
+            <h2 className="text-4xl text-dark-text">
               Tell us the workflow. We will tell you what it needs.
             </h2>
             <p className="mx-auto mt-5 max-w-[48ch] text-md leading-relaxed text-dark-muted">

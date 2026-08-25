@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default function ServicesIndex() {
   return (
     <>
-      <section className="pt-28 md:pt-40">
+      <section className="page-top">
         <div className="shell">
           <Rise>
             <p className="eyebrow">Services</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[18ch] text-4xl leading-[1.05] md:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-[18ch] text-6xl leading-[1.05]">
               Six ways we take work off your team.
             </h1>
           </Rise>
