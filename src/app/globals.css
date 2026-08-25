@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GarvAILabs — light system. Every value lives here.
+   ============================================================ */
+:root {
+  --bg: #faf9f7;
+  --soft: #f4f2ef;
+  --surface: #ffffff;
+  --text: #121110;
+  --muted: #625c58;
+  --border: rgba(18, 17, 16, 0.09);
+  --border-strong: rgba(18, 17, 16, 0.17);
+  /* Brand coral-orange, taken from the live garvailabs.com logo and CSS. */
+  --accent: #ee6352;
+  --accent-hover: #d85545;
+
+  /* #EE6352 is a FILL colour. On the page ground it measures ~3.05:1, so it
+     cannot carry body text. This darker shade (~4.7:1) is what type uses. */
+  --accent-text: #c24632;
+  --accent-soft: rgba(238, 99, 82, 0.11);
+
+  /* White on the brand orange is only ~3.2:1 — near-black is ~5.9:1, so text
+     on an orange fill is dark, not white. */
+  --on-accent: #2a0f0a;
+
+  --dark: #141110;
+  --dark-soft: #201b19;
+  --dark-text: #f6f4f2;
+  --dark-muted: #a09793;
+  --dark-border: rgba(255, 255, 255, 0.1);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-soft: var(--soft);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-dark: var(--dark);
+  --color-dark-soft: var(--dark-soft);
+  --color-dark-text: var(--dark-text);
+  --color-dark-muted: var(--dark-muted);
+  --color-dark-line: var(--dark-border);
+
+  /* One type scale. No arbitrary text-[Npx] anywhere in components. */
+  --text-2xs: 11px;
+  --text-xs: 12.5px;
+  --text-sm: 13.5px;
+  --text-base: 15px;
+  --text-md: 16.5px;
+  --text-lg: 18px;
+  --text-xl: 21px;
+  --text-2xl: 26px;
+  --text-3xl: 32px;
+  --text-4xl: 40px;
+  --text-5xl: 52px;
+  --text-6xl: 64px;
+
+  --radius-card: 14px;
+  --radius-lg: 16px;
+
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  * { border-color: var(--border); }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.032em;
+    line-height: 1.08;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p { text-wrap: pretty; margin: 0; }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+
+  button, a, input, textarea, select { font: inherit; }
+  button:not(:disabled), a, select, [role="tab"] { cursor: pointer; }
+}
+
+@layer utilities {
+  .shell {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) { .shell { padding-inline: 40px; } }
+
+  /* Generous, quiet rhythm — the whole look depends on this breathing room. */
+  .band { padding-block: 76px; }
+  @media (min-width: 768px) { .band { padding-block: 116px; } }
+  @media (min-width: 1200px) { .band { padding-block: 140px; } }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .num {
+    font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--border);
+  }
+}
+
+/* Reveal: CSS transition, JS only flips the flag. Keeps the page visible
+   when scripts are blocked and when motion is reduced. */
+.rise {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 500ms var(--ease) var(--rise-delay, 0s),
+    transform 500ms var(--ease) var(--rise-delay, 0s);
+}
+.rise[data-shown="true"] { opacity: 1; transform: none; }
+
+@media (scripting: none) {
+  .rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
