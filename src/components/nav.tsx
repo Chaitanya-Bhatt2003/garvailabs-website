@@ -70,7 +70,7 @@ export function Nav() {
       }`}
     >
       <nav className="shell flex h-16 items-center justify-between md:h-[76px]" aria-label="Primary">
-        <Link href="/" className="py-2" aria-label="GARV AI LABS — home">
+        <Link href="/" className="flex min-h-11 shrink-0 items-center" aria-label="GARV AI LABS — home">
           <Wordmark />
         </Link>
 

@@ -202,11 +202,11 @@ export const services: Service[] = [
   {
     slug: "geo",
     name: "GEO",
-    short: "Generative Engine Optimization — being cited by AI answer engines.",
+    short: "Generative Engine Optimisation — being cited by AI answer engines.",
     icon: Sparkles,
     headline: "When the answer is generated, be in it.",
     intro:
-      "More buyers now get their answer from ChatGPT, Gemini, Perplexity or an AI overview than from a list of ten blue links. Generative Engine Optimization is the work of making sure that when those systems answer a question in your category, your business is what they cite.",
+      "More buyers now get their answer from ChatGPT, Gemini, Perplexity or an AI overview than from a list of ten blue links. Generative Engine Optimisation is the work of making sure that when those systems answer a question in your category, your business is what they cite.",
     offerings: [
       {
         title: "Answer-engine visibility",
