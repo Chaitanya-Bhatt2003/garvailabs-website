@@ -18,7 +18,7 @@ const agenda = [
 
 export default function ContactPage() {
   return (
-    <section className="page-top pb-24 md:pb-32">
+    <section className="page-top band-b">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div>
           <Rise>

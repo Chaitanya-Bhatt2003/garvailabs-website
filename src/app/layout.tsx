@@ -3,9 +3,7 @@ import { Syne, Outfit } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { site } from "@/lib/site";
-
-const SITE = "https://garvailabs.com";
+import { site, SITE } from "@/lib/site";
 
 const syne = Syne({
   subsets: ["latin"],

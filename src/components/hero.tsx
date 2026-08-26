@@ -7,7 +7,7 @@ import { ProductMock } from "@/components/product-mock";
 export function Hero() {
   return (
     <section className="page-top relative overflow-hidden">
-      <div className="shell grid items-center gap-14 pb-20 md:pb-28 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] lg:gap-20 lg:pb-36">
+      <div className="band-b shell grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] lg:gap-20">
         <div className="min-w-0">
           <Rise>
             <h1 className="text-6xl leading-[1.04]">

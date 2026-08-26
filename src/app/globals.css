@@ -147,6 +147,9 @@
      stepping once at a breakpoint. */
   .page-top { padding-top: clamp(104px, 5.5rem + 5vw, 168px); }
 
+  /* Bottom-only counterpart to .band, for sections that set their own top. */
+  .band-b { padding-bottom: clamp(64px, 3.5rem + 5vw, 140px); }
+
   .eyebrow {
     font-size: 11px;
     font-weight: 600;

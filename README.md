@@ -93,6 +93,15 @@ switches on by flipping `data-shown`. Keeping the transition in CSS is deliberat
 `prefers-reduced-motion` and `@media (scripting: none)` override it with no JavaScript running, so
 the page is never left invisible when scripts are blocked.
 
+## Metadata
+
+`app/icon.png`, `app/apple-icon.png`, `app/opengraph-image.tsx`, `app/robots.ts` and
+`app/sitemap.ts` are Next file conventions, so there is no hand-maintained metadata. The icons are
+cropped from the real logo's dotted-g tile; the share card is drawn from the design tokens at build
+time with system fonts only, so it cannot drift from the site and the build stays offline-safe. The
+sitemap is generated from the same `services` and `caseStudies` arrays the pages render, so a new
+entry cannot be added without appearing in it.
+
 ## Before launch
 
 - **Review the SEO and GEO service copy** — it describes services the live site does not currently
@@ -100,7 +109,6 @@ the page is never left invisible when scripts are blocked.
 - The contact form has no backend. It validates, composes the email and hands it to the visitor's
   own mail client; the confirmation says plainly that pressing send is what delivers it. Wiring it
   to an inbox or CRM is a separate decision.
-- No favicon, share card, `robots.txt` or `sitemap.xml` yet.
 - The live site's current tagline, "When legacy holds you back, intelligence leads you forward,"
   is **not** used here — the hero reads "Intelligence that finishes the work." Worth a deliberate
   decision either way.

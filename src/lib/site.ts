@@ -1,3 +1,5 @@
+export const SITE = "https://garvailabs.com";
+
 /** Contact details taken from garvailabs.com/contact-us. */
 export const site = {
   name: "GARV AI LABS",
