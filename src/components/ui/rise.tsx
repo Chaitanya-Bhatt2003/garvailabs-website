@@ -1,19 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import type { RiseFrom } from "@/lib/motion";
 
 type RiseProps = {
   children: ReactNode;
   delay?: number;
   className?: string;
   as?: "div" | "section" | "li" | "article" | "header";
-  /** Once visible, keep shown (default). Set false to allow re-trigger — unused for now. */
+  /** Once visible, keep shown (default). */
   once?: boolean;
+  /**
+   * Entrance direction / emphasis.
+   * CSS-driven; only transform + opacity.
+   */
+  from?: RiseFrom;
 };
 
 /**
  * Scroll reveal — CSS-driven (transform + opacity) for perf.
- * Component only toggles `data-shown` when the node enters view.
+ * Toggles `data-shown` when the node enters view.
  */
 export function Rise({
   children,
@@ -21,6 +27,7 @@ export function Rise({
   className = "",
   as = "div",
   once = true,
+  from = "up",
 }: RiseProps) {
   const Tag = as as "div";
   const ref = useRef<HTMLDivElement>(null);
@@ -49,8 +56,8 @@ export function Rise({
       },
       {
         // Trigger slightly early so motion feels continuous while scrolling
-        rootMargin: "0px 0px -8% 0px",
-        threshold: 0.08,
+        rootMargin: "0px 0px -10% 0px",
+        threshold: 0.06,
       },
     );
     io.observe(el);
@@ -61,6 +68,7 @@ export function Rise({
     <Tag
       ref={ref}
       data-shown={shown}
+      data-rise={from}
       className={`rise ${className}`}
       style={{ "--rise-delay": `${delay}s` } as CSSProperties}
     >

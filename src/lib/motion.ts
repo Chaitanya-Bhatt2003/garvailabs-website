@@ -1,11 +1,14 @@
 /**
- * Premium motion language — springy, short, GPU-only (transform/opacity).
+ * Premium motion language — GPU-only (transform / opacity).
+ * Personality: elegant, minimal, no bounce.
  */
 
 export const easeOut = [0.22, 0.61, 0.36, 1] as const;
 export const easeUi = [0.2, 0, 0, 1] as const;
 /** Soft accelerate for exits / curtains */
 export const easeIn = [0.4, 0, 1, 1] as const;
+/** Refined settle — Nominal-like deceleration */
+export const easePremium = [0.16, 1, 0.3, 1] as const;
 
 export const duration = {
   instant: 0.12,
@@ -15,6 +18,8 @@ export const duration = {
   slow: 0.7,
   page: 0.55,
   boot: 0.85,
+  /** Scroll-reveal settle */
+  reveal: 0.72,
 } as const;
 
 /** Soft spring — expensive UI feel without bounce noise */
@@ -68,6 +73,11 @@ export const staggerFast = {
   },
 };
 
+/** Grid choreography — column-aware stagger in seconds */
+export function staggerDelay(index: number, columns = 3, step = 0.07, base = 0.04) {
+  return base + (index % columns) * step + Math.floor(index / columns) * (step * 0.45);
+}
+
 export const wordReveal = {
   hidden: { opacity: 0, y: "0.55em" },
   show: {
@@ -89,3 +99,6 @@ export const pageEnter = {
     },
   },
 };
+
+/** Scroll-reveal directions for Rise `from` prop */
+export type RiseFrom = "up" | "soft" | "left" | "right" | "scale";

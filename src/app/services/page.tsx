@@ -16,15 +16,15 @@ export default function ServicesIndex() {
     <>
       <section className="page-top">
         <div className="shell">
-          <Rise>
+          <Rise from="soft">
             <p className="eyebrow">Services</p>
           </Rise>
-          <Rise delay={0.06}>
+          <Rise delay={0.07} from="up">
             <h1 className="mt-5 max-w-[18ch] text-6xl">
               Six ways we take work off your team.
             </h1>
           </Rise>
-          <Rise delay={0.12}>
+          <Rise delay={0.14} from="soft">
             <p className="mt-6 max-w-[56ch] text-md leading-[1.65] text-muted">
               From AI agents that finish a case end to end, to the software, apps and search
               visibility that surround them. Every engagement starts with one workflow and a written
@@ -38,7 +38,12 @@ export default function ServicesIndex() {
         <div className="shell">
           <div className="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {services.map((s, i) => (
-              <Rise key={s.slug} delay={(i % 3) * 0.06} className="h-full">
+              <Rise
+                key={s.slug}
+                delay={(i % 3) * 0.075 + Math.floor(i / 3) * 0.04}
+                from={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
+                className="h-full"
+              >
                 <Link
                   href={`/services/${s.slug}`}
                   className="press card-lift group flex h-full flex-col rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] transition-colors duration-200 md:p-9"
@@ -62,7 +67,7 @@ export default function ServicesIndex() {
             ))}
           </div>
 
-          <Rise delay={0.2}>
+          <Rise delay={0.22} from="soft">
             <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Not sure which of these your problem needs? Describe the workflow and we will tell

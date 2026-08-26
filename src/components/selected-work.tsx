@@ -4,6 +4,7 @@ import { Rise } from "@/components/ui/rise";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { SnapDots } from "@/components/ui/snap-dots";
 import { caseStudies } from "@/lib/work";
+import { staggerDelay } from "@/lib/motion";
 
 function WorkCard({
   c,
@@ -46,19 +47,27 @@ export function SelectedWork({ limit = 3 }: { limit?: number }) {
   return (
     <>
       <div className="md:hidden">
-        <div className="snap-rail flex" aria-label="Selected work">
-          {items.map((c) => (
-            <div key={c.slug} className="w-[min(85vw,320px)] shrink-0 snap-center">
-              <WorkCard c={c} className="h-full" />
-            </div>
-          ))}
-        </div>
+        <Rise from="soft">
+          <div className="snap-rail flex" aria-label="Selected work">
+            {items.map((c) => (
+              <div key={c.slug} className="w-[min(85vw,320px)] shrink-0 snap-center">
+                <WorkCard c={c} className="h-full" />
+              </div>
+            ))}
+          </div>
+        </Rise>
         <SnapDots count={items.length} />
       </div>
 
       <div className="hidden gap-5 md:grid lg:grid-cols-3">
         {items.map((c, i) => (
-          <Rise as="article" key={c.slug} delay={i * 0.07} className="h-full">
+          <Rise
+            as="article"
+            key={c.slug}
+            delay={staggerDelay(i, 3, 0.08, 0.03)}
+            from={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
+            className="h-full"
+          >
             <WorkCard c={c} />
           </Rise>
         ))}

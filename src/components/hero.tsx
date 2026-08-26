@@ -19,7 +19,10 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const washY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const washY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const mockY = useTransform(scrollYProgress, [0, 1], [0, 48]);
+  const mockScale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
+  const orbY = useTransform(scrollYProgress, [0, 1], [0, -36]);
 
   return (
     <section ref={sectionRef} className="page-top relative overflow-x-clip">
@@ -109,48 +112,52 @@ export function Hero() {
 
         <motion.div
           className="relative min-w-0 max-w-full lg:pl-2"
-          initial={reduce ? false : { opacity: 0, y: 22, scale: 0.98 }}
+          initial={reduce ? false : { opacity: 0, y: 28, scale: 0.975 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.65, ease: easeOut, delay: reduce ? 0 : 0.22 }}
+          transition={{ duration: 0.72, ease: easeOut, delay: reduce ? 0 : 0.2 }}
         >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-6 -top-8 hidden h-28 w-28 rounded-full border border-accent/20 md:block"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-4 -left-4 hidden h-20 w-20 rounded-full bg-accent-soft blur-2xl md:block"
-          />
+          <motion.div className="relative" style={reduce ? undefined : { y: mockY, scale: mockScale }}>
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-6 -top-8 hidden h-28 w-28 rounded-full border border-accent/20 md:block"
+              style={reduce ? undefined : { y: orbY }}
+            />
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-4 -left-4 hidden h-20 w-20 rounded-full bg-accent-soft blur-2xl md:block"
+              style={reduce ? undefined : { y: washY }}
+            />
 
-          <div className="hidden min-w-0 max-w-full md:block">
-            <TiltFrame>
-              <div
-                className="rounded-xl p-[1px] shadow-[var(--shadow-lg)]"
-                style={{
-                  background:
-                    "linear-gradient(145deg, rgba(238,99,82,0.32), rgba(18,17,16,0.06) 42%, rgba(18,17,16,0.04))",
-                }}
-              >
-                <div className="overflow-hidden rounded-[calc(var(--radius-xl)-1px)] bg-surface">
-                  <ProductMock framed />
+            <div className="hidden min-w-0 max-w-full md:block">
+              <TiltFrame>
+                <div
+                  className="rounded-xl p-[1px] shadow-[var(--shadow-lg)]"
+                  style={{
+                    background:
+                      "linear-gradient(145deg, rgba(238,99,82,0.32), rgba(18,17,16,0.06) 42%, rgba(18,17,16,0.04))",
+                  }}
+                >
+                  <div className="overflow-hidden rounded-[calc(var(--radius-xl)-1px)] bg-surface">
+                    <ProductMock framed />
+                  </div>
+                </div>
+              </TiltFrame>
+            </div>
+
+            <details className="preview-sheet group glass rounded-xl open:bg-surface md:hidden">
+              <summary className="press flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-base font-medium marker:content-none [&::-webkit-details-marker]:hidden">
+                <span>See product preview</span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soft text-sm text-muted transition-transform duration-200 group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <div className="preview-body">
+                <div className="min-w-0 max-w-full border-t border-line p-2.5 sm:p-3">
+                  <ProductMock />
                 </div>
               </div>
-            </TiltFrame>
-          </div>
-
-          <details className="preview-sheet group glass rounded-xl open:bg-surface md:hidden">
-            <summary className="press flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-base font-medium marker:content-none [&::-webkit-details-marker]:hidden">
-              <span>See product preview</span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-soft text-sm text-muted transition-transform duration-200 group-open:rotate-45">
-                +
-              </span>
-            </summary>
-            <div className="preview-body">
-              <div className="min-w-0 max-w-full border-t border-line p-2.5 sm:p-3">
-                <ProductMock />
-              </div>
-            </div>
-          </details>
+            </details>
+          </motion.div>
         </motion.div>
       </div>
     </section>

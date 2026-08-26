@@ -37,10 +37,10 @@ export function usePageTransitionOptional() {
   return useContext(TransitionContext);
 }
 
-const COVER_MS = 340;
-const HOLD_MS = 90;
-const REVEAL_MS = 420;
-const BOOT_HOLD_MS = 280;
+const COVER_MS = 520;
+const HOLD_MS = 130;
+const REVEAL_MS = 560;
+const BOOT_HOLD_MS = 320;
 
 function isModifiedEvent(e: MouseEvent) {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;

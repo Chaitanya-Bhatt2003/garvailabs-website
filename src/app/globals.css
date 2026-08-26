@@ -488,15 +488,28 @@ body:has([data-nav-open="true"]) [data-mobile-cta] {
   }
 }
 
-/* Reveal — fade + short rise + micro-scale (GPU-friendly). */
+/* Reveal — cinematic settle (transform + opacity only). */
 .rise {
+  --rise-ease: cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
-  transform: translate3d(0, 18px, 0) scale(0.985);
+  transform: translate3d(0, 28px, 0) scale(0.98);
   overflow: visible !important;
   transition:
-    opacity 560ms var(--ease) var(--rise-delay, 0s),
-    transform 560ms var(--ease) var(--rise-delay, 0s);
+    opacity 720ms var(--rise-ease) var(--rise-delay, 0s),
+    transform 780ms var(--rise-ease) var(--rise-delay, 0s);
   will-change: opacity, transform;
+}
+.rise[data-rise="soft"] {
+  transform: translate3d(0, 16px, 0) scale(0.992);
+}
+.rise[data-rise="left"] {
+  transform: translate3d(-22px, 14px, 0) scale(0.985);
+}
+.rise[data-rise="right"] {
+  transform: translate3d(22px, 14px, 0) scale(0.985);
+}
+.rise[data-rise="scale"] {
+  transform: translate3d(0, 10px, 0) scale(0.94);
 }
 .rise[data-shown="true"] {
   opacity: 1;
@@ -506,8 +519,18 @@ body:has([data-nav-open="true"]) [data-mobile-cta] {
 
 @media (max-width: 767px) {
   .rise {
-    transform: translate3d(0, 12px, 0) scale(0.99);
-    transition-duration: 420ms;
+    transform: translate3d(0, 16px, 0) scale(0.99);
+    transition-duration: 520ms, 560ms;
+  }
+  .rise[data-rise="soft"] {
+    transform: translate3d(0, 10px, 0) scale(0.995);
+  }
+  .rise[data-rise="left"],
+  .rise[data-rise="right"] {
+    transform: translate3d(0, 14px, 0) scale(0.99);
+  }
+  .rise[data-rise="scale"] {
+    transform: translate3d(0, 8px, 0) scale(0.97);
   }
   .rise[data-shown="true"] {
     transform: translate3d(0, 0, 0) scale(1);

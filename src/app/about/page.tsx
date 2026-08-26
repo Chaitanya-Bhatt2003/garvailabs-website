@@ -45,15 +45,15 @@ export default function AboutPage() {
     <>
       <section className="page-top">
         <div className="shell">
-          <Rise>
+          <Rise from="soft">
             <p className="eyebrow">About</p>
           </Rise>
-          <Rise delay={0.06}>
+          <Rise delay={0.07} from="up">
             <h1 className="mt-5 max-w-[20ch] text-6xl">
               We build AI-native systems that do the work.
             </h1>
           </Rise>
-          <Rise delay={0.12}>
+          <Rise delay={0.14} from="soft">
             <p className="mt-6 max-w-[58ch] text-md leading-[1.65] text-muted">
               GARV AI LABS declutters operations, unites disconnected systems, and turns data into
               decisive action. We work from Kashipur, Uttarakhand, with clients across India and
@@ -66,7 +66,7 @@ export default function AboutPage() {
       {/* what we do */}
       <section className="band">
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
-          <Rise>
+          <Rise from="left">
             <h2 className="text-4xl">What we actually do</h2>
             <div className="mt-7 flex flex-col gap-5 text-base leading-relaxed text-muted md:text-md">
               <p>
@@ -88,7 +88,7 @@ export default function AboutPage() {
             </div>
           </Rise>
 
-          <Rise delay={0.08}>
+          <Rise delay={0.1} from="right">
             <div className="rounded-lg border border-line bg-soft p-8 md:p-10">
               <h2 className="text-2xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Sectors we have shipped in
@@ -122,7 +122,12 @@ export default function AboutPage() {
           </Rise>
           <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-5">
             {principles.map((p, i) => (
-              <Rise key={p.title} delay={(i % 2) * 0.07} className="h-full">
+              <Rise
+                key={p.title}
+                delay={(i % 2) * 0.08 + Math.floor(i / 2) * 0.05}
+                from={i % 2 === 0 ? "left" : "right"}
+                className="h-full"
+              >
                 <div className="flex h-full flex-col rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] md:p-8">
                   <h3 className="text-xl">{p.title}</h3>
                   <p className="mt-3 text-base leading-relaxed text-muted">{p.body}</p>

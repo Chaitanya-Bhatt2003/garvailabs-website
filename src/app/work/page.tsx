@@ -16,15 +16,15 @@ export default function WorkIndex() {
     <>
       <section className="page-top">
         <div className="shell">
-          <Rise>
+          <Rise from="soft">
             <p className="eyebrow">Work</p>
           </Rise>
-          <Rise delay={0.06}>
+          <Rise delay={0.07} from="up">
             <h1 className="mt-5 max-w-[18ch] text-6xl">
               Systems running in the field.
             </h1>
           </Rise>
-          <Rise delay={0.12}>
+          <Rise delay={0.14} from="soft">
             <p className="mt-6 max-w-[56ch] text-md leading-[1.65] text-muted">
               Five projects across agriculture, healthtech, government and maritime. Each one names
               the problem it started from, what we built, and what changed afterwards.
@@ -37,7 +37,7 @@ export default function WorkIndex() {
         <div className="shell">
           <div className="flex flex-col gap-5">
             {caseStudies.map((c, i) => (
-              <Rise as="article" key={c.slug} delay={(i % 2) * 0.06}>
+              <Rise as="article" key={c.slug} delay={i * 0.08} from={i % 2 === 0 ? "left" : "right"}>
                 <Link
                   href={`/work/${c.slug}`}
                   className="press card-lift group grid gap-7 rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] transition-[border-color,transform,opacity,box-shadow] duration-200 md:p-10 lg:grid-cols-[1.4fr_0.6fr] lg:items-center lg:gap-12"
@@ -72,7 +72,7 @@ export default function WorkIndex() {
             ))}
           </div>
 
-          <Rise delay={0.16}>
+          <Rise delay={0.18} from="soft">
             <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Every one of these started as a single workflow somebody was doing by hand.

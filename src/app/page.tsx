@@ -7,6 +7,7 @@ import { SelectedWork } from "@/components/selected-work";
 import { HowItWorks } from "@/components/how-it-works";
 import { FinalCta } from "@/components/final-cta";
 import { Rise } from "@/components/ui/rise";
+import { ScrollDrift } from "@/components/ui/scroll-drift";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Cta } from "@/components/ui/button";
 import { CountUp } from "@/components/ui/count-up";
@@ -28,12 +29,16 @@ export default function Home() {
       {/* proof */}
       <section className="mesh-soft border-b border-line">
         <div className="shell py-12 md:py-16">
-          <Rise>
+          <Rise from="soft">
             <p className="eyebrow">Proof from delivered work</p>
           </Rise>
           <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3 md:gap-5">
             {proof.map((p, i) => (
-              <Rise key={p.value} delay={i * 0.07}>
+              <Rise
+                key={p.value}
+                delay={0.05 + i * 0.09}
+                from={i === 0 ? "left" : i === 2 ? "right" : "up"}
+              >
                 <SpotlightCard className="h-full">
                   <Link
                     href="/work"
@@ -55,7 +60,7 @@ export default function Home() {
               </Rise>
             ))}
           </div>
-          <Rise delay={0.2}>
+          <Rise delay={0.28} from="soft">
             <p className="mt-8 text-sm text-muted md:mt-10">
               Measured on delivered projects.{" "}
               <Link href="/work" className="link-soft text-accent-text">
@@ -76,7 +81,7 @@ export default function Home() {
               title="Six ways we take work off your team."
               body="From AI agents that finish a case end to end, to the software, apps and search visibility around them."
             />
-            <Rise delay={0.1} className="shrink-0 lg:pb-1">
+            <Rise delay={0.16} from="soft" className="shrink-0 lg:pb-1">
               <Cta href="/services" variant="outline" arrow>
                 All services
               </Cta>
@@ -102,7 +107,7 @@ export default function Home() {
             <SelectedWork limit={3} />
           </div>
 
-          <Rise delay={0.16}>
+          <Rise delay={0.18} from="soft">
             <div className="mt-10">
               <Cta href="/work" variant="outline" arrow>
                 All case studies
@@ -116,8 +121,9 @@ export default function Home() {
 
       {/* about teaser */}
       <section className="band border-t border-line">
-        <div className="shell grid items-stretch gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-          <Rise className="h-full">
+        <div className="shell">
+          <ScrollDrift distance={18} className="grid items-stretch gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+          <Rise from="left" className="h-full">
             <div className="flex h-full flex-col justify-between rounded-xl border border-line bg-surface p-8 shadow-[var(--shadow-sm)] md:p-10">
               <div>
                 <div className="flex items-center gap-3">
@@ -136,7 +142,7 @@ export default function Home() {
             </div>
           </Rise>
 
-          <Rise delay={0.08} className="h-full">
+          <Rise delay={0.1} from="right" className="h-full">
             <div className="flex h-full flex-col gap-5 rounded-xl border border-line bg-soft/80 p-8 md:p-10">
               <p className="text-base leading-relaxed text-muted md:text-md">
                 Most of our projects start the same way: somebody is doing something by hand,
@@ -158,6 +164,7 @@ export default function Home() {
               </div>
             </div>
           </Rise>
+          </ScrollDrift>
         </div>
       </section>
 

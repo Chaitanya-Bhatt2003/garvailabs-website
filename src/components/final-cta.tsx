@@ -26,7 +26,7 @@ export function FinalCta() {
         }}
       />
       <div className="shell relative">
-        <Rise className="mx-auto max-w-2xl text-center">
+        <Rise from="scale" className="mx-auto max-w-2xl text-center">
           <div className="mx-auto max-w-xl rounded-xl border border-dark-line bg-dark-soft/50 px-6 py-10 shadow-[var(--shadow-lg)] backdrop-blur-md sm:px-10 sm:py-12">
             <p className="text-2xs font-semibold uppercase tracking-[0.16em] text-dark-muted">
               Start here

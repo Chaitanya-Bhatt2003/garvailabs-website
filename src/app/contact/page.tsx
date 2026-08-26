@@ -21,22 +21,22 @@ export default function ContactPage() {
     <section className="page-top band-b">
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div>
-          <Rise>
+          <Rise from="soft">
             <p className="eyebrow">Contact</p>
           </Rise>
-          <Rise delay={0.06}>
+          <Rise delay={0.07} from="up">
             <h1 className="mt-6 max-w-[15ch] text-5xl">
               Tell us the workflow.
             </h1>
           </Rise>
-          <Rise delay={0.12}>
+          <Rise delay={0.14} from="soft">
             <p className="mt-6 max-w-[44ch] text-md leading-[1.65] text-muted">
               Bring one process your team keeps doing by hand. We will tell you what it would take
               to build, and say so plainly when it is not worth building.
             </p>
           </Rise>
 
-          <Rise delay={0.18}>
+          <Rise delay={0.2} from="up">
             <ol className="mt-10 space-y-4 border-t border-line pt-8">
               {agenda.map((a, i) => (
                 <li key={a} className="flex gap-4 text-base leading-snug text-muted">
@@ -83,7 +83,7 @@ export default function ContactPage() {
           </Rise>
         </div>
 
-        <Rise delay={0.14}>
+        <Rise delay={0.16} from="right">
           <ContactForm />
         </Rise>
       </div>

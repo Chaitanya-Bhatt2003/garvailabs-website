@@ -20,7 +20,7 @@ export function HowItWorks() {
           />
 
           {steps.map((s, i) => (
-            <Rise as="li" key={s.n} delay={i * 0.08} className="h-full">
+            <Rise as="li" key={s.n} delay={0.05 + i * 0.09} from="up" className="h-full">
               <div className="group relative flex h-full flex-col rounded-xl border border-line bg-surface p-6 shadow-[var(--shadow-sm)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-[var(--shadow-md)] md:p-7">
                 <div className="relative z-[1] flex items-center gap-3">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-text transition-transform duration-300 group-hover:scale-105">

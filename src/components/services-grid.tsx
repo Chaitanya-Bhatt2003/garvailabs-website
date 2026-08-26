@@ -4,6 +4,7 @@ import { Rise } from "@/components/ui/rise";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { SnapDots } from "@/components/ui/snap-dots";
 import { services } from "@/lib/services";
+import { staggerDelay } from "@/lib/motion";
 
 function ServiceCard({
   s,
@@ -40,19 +41,26 @@ export function ServicesGrid() {
   return (
     <>
       <div className="md:hidden">
-        <div className="snap-rail flex" aria-label="Services">
-          {services.map((s) => (
-            <div key={s.slug} className="w-[min(82vw,300px)] shrink-0 snap-center">
-              <ServiceCard s={s} />
-            </div>
-          ))}
-        </div>
+        <Rise from="soft">
+          <div className="snap-rail flex" aria-label="Services">
+            {services.map((s) => (
+              <div key={s.slug} className="w-[min(82vw,300px)] shrink-0 snap-center">
+                <ServiceCard s={s} />
+              </div>
+            ))}
+          </div>
+        </Rise>
         <SnapDots count={services.length} />
       </div>
 
       <div className="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {services.map((s, i) => (
-          <Rise key={s.slug} delay={(i % 3) * 0.06} className="h-full overflow-visible">
+          <Rise
+            key={s.slug}
+            delay={staggerDelay(i, 3, 0.075, 0.02)}
+            from={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
+            className="h-full overflow-visible"
+          >
             <ServiceCard s={s} />
           </Rise>
         ))}
