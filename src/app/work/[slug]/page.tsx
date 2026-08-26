@@ -49,7 +49,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="eyebrow mt-6">{study.sector}</p>
           </Rise>
           <Rise delay={0.1}>
-            <h1 className="mt-4 max-w-[22ch] text-5xl leading-[1.06]">
+            <h1 className="mt-4 max-w-[22ch] text-5xl">
               {study.title}
             </h1>
           </Rise>

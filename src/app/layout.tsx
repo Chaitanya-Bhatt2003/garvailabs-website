@@ -1,20 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { MobileCtaBar } from "@/components/mobile-cta";
+import { Providers } from "@/components/providers";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { CursorGlow } from "@/components/cursor-glow";
 import { site, SITE } from "@/lib/site";
-
-const syne = Syne({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-syne",
-  display: "swap",
-});
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-outfit",
   display: "swap",
 });
@@ -73,11 +70,12 @@ export const viewport: Viewport = {
   themeColor: "#ee6352",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${syne.variable} ${outfit.variable}`}>
+    <html lang="en-IN" className={outfit.variable}>
       <body className="min-h-dvh">
         <script
           type="application/ld+json"
@@ -89,9 +87,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
+        <Providers>
+          <ScrollProgress />
+          <CursorGlow />
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+          <MobileCtaBar />
+        </Providers>
       </body>
     </html>
   );

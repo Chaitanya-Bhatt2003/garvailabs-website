@@ -49,7 +49,7 @@ export default function AboutPage() {
             <p className="eyebrow">About</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[20ch] text-6xl leading-[1.05]">
+            <h1 className="mt-5 max-w-[20ch] text-6xl">
               We build AI-native systems that do the work.
             </h1>
           </Rise>
@@ -120,10 +120,10 @@ export default function AboutPage() {
           <Rise className="max-w-2xl">
             <h2 className="text-4xl">How we work</h2>
           </Rise>
-          <div className="mt-10 grid gap-4 md:mt-12 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-5">
             {principles.map((p, i) => (
               <Rise key={p.title} delay={(i % 2) * 0.07} className="h-full">
-                <div className="flex h-full flex-col rounded-lg border border-line bg-surface p-7 md:p-8">
+                <div className="flex h-full flex-col rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] md:p-8">
                   <h3 className="text-xl">{p.title}</h3>
                   <p className="mt-3 text-base leading-relaxed text-muted">{p.body}</p>
                 </div>
@@ -138,14 +138,14 @@ export default function AboutPage() {
         <div className="shell grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
           <Rise>
             <h2 className="text-3xl">What we offer</h2>
-            <ul className="mt-7 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link
                     href={`/services/${s.slug}`}
-                    className="flex h-full items-start gap-3 bg-surface p-5 transition-colors hover:bg-soft"
+                    className="press card-lift flex h-full items-start gap-3 rounded-xl border border-line bg-surface p-5 shadow-[var(--shadow-xs)] transition-colors hover:bg-soft"
                   >
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text">
+                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-accent-soft text-accent-text">
                       <s.icon size={15} strokeWidth={1.9} aria-hidden="true" />
                     </span>
                     <span className="text-base font-medium">{s.name}</span>

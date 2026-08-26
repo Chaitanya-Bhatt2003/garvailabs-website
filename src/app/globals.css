@@ -9,8 +9,8 @@
   --surface: #ffffff;
   --text: #121110;
   --muted: #625c58;
-  --border: rgba(18, 17, 16, 0.09);
-  --border-strong: rgba(18, 17, 16, 0.17);
+  --border: rgba(18, 17, 16, 0.08);
+  --border-strong: rgba(18, 17, 16, 0.14);
   /* Brand coral-orange, taken from the live garvailabs.com logo and CSS. */
   --accent: #ee6352;
   --accent-hover: #d85545;
@@ -29,6 +29,13 @@
   --dark-text: #f6f4f2;
   --dark-muted: #a09793;
   --dark-border: rgba(255, 255, 255, 0.1);
+
+  /* Soft elevation — Behance-inspired depth without a new palette */
+  --shadow-xs: 0 1px 2px rgba(18, 17, 16, 0.04);
+  --shadow-sm: 0 4px 18px -8px rgba(18, 17, 16, 0.1), 0 1px 3px rgba(18, 17, 16, 0.04);
+  --shadow-md: 0 16px 40px -20px rgba(18, 17, 16, 0.18), 0 4px 12px -6px rgba(18, 17, 16, 0.06);
+  --shadow-lg: 0 32px 64px -28px rgba(18, 17, 16, 0.28), 0 12px 24px -16px rgba(18, 17, 16, 0.08);
+  --shadow-accent: 0 12px 28px -10px rgba(238, 99, 82, 0.42);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -71,10 +78,27 @@
   --text-5xl: clamp(32px, 24px + 2.22vw, 56px);
   --text-6xl: clamp(34px, 21.33px + 3.52vw, 72px);
 
-  --radius-card: 14px;
-  --radius-lg: 16px;
+  /* CRITICAL: Tailwind defaults these to 1, which clips Syne/Outfit descenders
+     (g, y, p, q) flush to the baseline. text-* utilities beat element rules,
+     so the fix must live on the theme tokens themselves. */
+  --text-2xs--line-height: 1.45;
+  --text-xs--line-height: 1.45;
+  --text-sm--line-height: 1.5;
+  --text-base--line-height: 1.65;
+  --text-md--line-height: 1.65;
+  --text-lg--line-height: 1.55;
+  --text-xl--line-height: 1.45;
+  --text-2xl--line-height: 1.4;
+  --text-3xl--line-height: 1.35;
+  --text-4xl--line-height: 1.3;
+  --text-5xl--line-height: 1.28;
+  --text-6xl--line-height: 1.28;
 
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -90,19 +114,33 @@
     color: var(--text);
     font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
     font-size: 16.5px;
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    /* Do NOT set overflow-x:hidden/clip on body — in Chromium that makes
+       overflow-y compute to auto and clips glyph descenders site-wide. */
     overflow-wrap: break-word;
   }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  /* Kill Tailwind preflight’s line-height:1 on headings, and never let
+     descenders get painted over by the next sibling. */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    /* Outfit — Syne’s g/y/p read as clipped at display sizes on Windows.
+       Same loaded face as body; clear, full descenders. */
+    font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
     font-weight: 600;
-    letter-spacing: -0.032em;
-    line-height: 1.08;
+    letter-spacing: -0.02em;
+    line-height: 1.35 !important;
+    overflow: visible !important;
     text-wrap: balance;
     margin: 0;
+    padding-bottom: 0.15em;
+    text-box-trim: none;
+    text-box-edge: auto;
+  }
+
+  p, li, label, td, th {
+    overflow: visible !important;
+    text-box-trim: none;
   }
 
   p { text-wrap: pretty; margin: 0; }
@@ -120,7 +158,6 @@
 
   button, a, input, textarea, select { font: inherit; }
 
-  /* Media never overflows its column, whatever the viewport. */
   img, svg, video { max-width: 100%; height: auto; }
   button:not(:disabled), a, select, [role="tab"] { cursor: pointer; }
 }
@@ -130,60 +167,359 @@
     width: 100%;
     max-width: 1180px;
     margin-inline: auto;
-    /* Gutters grow with the viewport instead of stepping once at 768px,
-       and respect the notch on landscape phones. */
-    padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right));
-    padding-inline: clamp(20px, 1.2rem + 1.6vw, 44px);
+    padding-left: max(20px, env(safe-area-inset-left), clamp(20px, 1.2rem + 1.6vw, 44px));
+    padding-right: max(20px, env(safe-area-inset-right), clamp(20px, 1.2rem + 1.6vw, 44px));
   }
 
-  /* Very wide screens: let the measure breathe a little rather than
-     leaving the page a narrow ribbon in the middle of a monitor. */
   @media (min-width: 1600px) { .shell { max-width: 1280px; } }
 
-  /* Generous, quiet rhythm — the whole look depends on this breathing room. */
-  .band { padding-block: clamp(64px, 3.5rem + 5vw, 140px); }
+  .band { padding-block: clamp(64px, 3.5rem + 5vw, 152px); }
+  .page-top {
+    padding-top: calc(clamp(104px, 5.5rem + 5vw, 176px) + env(safe-area-inset-top));
+  }
+  .band-b { padding-bottom: clamp(64px, 3.5rem + 5vw, 152px); }
 
-  /* Clearance under the fixed header, scaling with it rather than
-     stepping once at a breakpoint. */
-  .page-top { padding-top: clamp(104px, 5.5rem + 5vw, 168px); }
-
-  /* Bottom-only counterpart to .band, for sections that set their own top. */
-  .band-b { padding-bottom: clamp(64px, 3.5rem + 5vw, 140px); }
+  /* Short landscape phones — keep sections from feeling sparse */
+  @media (max-height: 480px) and (orientation: landscape) {
+    .band { padding-block: clamp(36px, 2rem + 2vw, 64px); }
+    .page-top { padding-top: calc(72px + env(safe-area-inset-top)); }
+    .band-b { padding-bottom: clamp(36px, 2rem + 2vw, 64px); }
+  }
 
   .eyebrow {
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--muted);
   }
 
   .num {
-    font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.03em;
     font-weight: 600;
+    line-height: 1.3 !important;
+    overflow: visible !important;
   }
 
   .rule {
     height: 1px;
     background: var(--border);
   }
+
+  /* Premium surface primitives */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .panel-soft {
+    background: var(--soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    border: 1px solid var(--border);
+  }
+
+  .metric-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    padding: 0.35rem 0.85rem;
+    font-weight: 600;
+  }
+
+  /* Atmosphere */
+  .noise-overlay {
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  .mesh-soft {
+    background:
+      radial-gradient(ellipse 70% 50% at 0% 0%, var(--accent-soft), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(18, 17, 16, 0.03), transparent 50%),
+      var(--soft);
+  }
+
+  .spotlight-card {
+    --spot-x: 50%;
+    --spot-y: 50%;
+    position: relative;
+    isolation: isolate;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 280ms var(--ease);
+      background: radial-gradient(
+        420px circle at var(--spot-x) var(--spot-y),
+        rgba(238, 99, 82, 0.12),
+        transparent 55%
+      );
+    }
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+    .spotlight-card > * {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .marquee-track {
+    animation: marquee 42s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .float-slow {
+    animation: float-slow 7s ease-in-out infinite alternate;
+  }
+  @keyframes float-slow {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -8px, 0); }
+  }
+
+  /* Touch press — cards and CTAs */
+  .press {
+    transition:
+      transform 180ms var(--ease),
+      opacity 180ms var(--ease),
+      box-shadow 220ms var(--ease),
+      background-color 200ms var(--ease),
+      border-color 200ms var(--ease);
+  }
+  .press:active {
+    transform: scale(0.985);
+    opacity: 0.94;
+  }
+
+  /* Desktop hover lift for interactive cards */
+  @media (hover: hover) and (pointer: fine) {
+    .card-lift {
+      transition:
+        transform 280ms var(--ease),
+        box-shadow 280ms var(--ease),
+        border-color 220ms var(--ease),
+        background-color 220ms var(--ease);
+    }
+    .card-lift:hover {
+      transform: translateY(-4px) scale(1.012);
+      box-shadow: var(--shadow-md);
+      border-color: color-mix(in srgb, var(--border-strong) 75%, var(--accent) 25%);
+    }
+    .press:hover {
+      transform: translateY(-1px) scale(1.015);
+    }
+    .press:active {
+      transform: scale(0.985);
+    }
+    .btn-primary:hover {
+      box-shadow: var(--shadow-accent);
+    }
+  }
+
+  /* Soft link underline grow */
+  .link-soft {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1.5px;
+    transition: background-size 220ms var(--ease), color 200ms var(--ease);
+  }
+  .link-soft:hover {
+    background-size: 100% 1.5px;
+  }
+
+  /* Nav link underline draw */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.55rem;
+    height: 1.5px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms var(--ease);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Arrow nudge on group hover */
+  .arrow-nudge {
+    transition: transform 220ms var(--ease);
+  }
+  .group:hover .arrow-nudge {
+    transform: translateX(3px);
+  }
+
+  /* Icon chip micro-scale on card hover */
+  .icon-chip {
+    transition: transform 280ms var(--ease);
+  }
+  .group:hover .icon-chip {
+    transform: scale(1.06);
+  }
+
+  /* Ambient hero wash drift */
+  .hero-wash {
+    animation: wash-drift 14s ease-in-out infinite alternate;
+  }
+  @keyframes wash-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+    to { transform: translate3d(2%, 1.5%, 0) scale(1.04); opacity: 0.85; }
+  }
+
+  /* Product mock live indicators */
+  .mock-pulse {
+    animation: mock-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes mock-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+
+  .chart-draw {
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    animation: chart-draw 1.15s var(--ease) 0.25s forwards;
+  }
+  .chart-fill {
+    opacity: 0;
+    animation: chart-fill 0.7s var(--ease) 0.85s forwards;
+  }
+  @keyframes chart-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes chart-fill {
+    to { opacity: 1; }
+  }
+
+  /* Details expand (product preview on mobile) */
+  details.preview-sheet > .preview-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 320ms var(--ease);
+  }
+  details.preview-sheet[open] > .preview-body {
+    grid-template-rows: 1fr;
+  }
+  details.preview-sheet > .preview-body > div {
+    overflow: hidden;
+  }
+
+  /* Stacked full-width CTAs under ~480px */
+  .cta-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .cta-stack > div {
+    width: 100%;
+  }
+  @media (min-width: 481px) {
+    .cta-stack {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 2rem;
+    }
+    .cta-stack > div {
+      width: auto;
+    }
+  }
+
+  /* Horizontal snap rail for mobile carousels.
+     Do NOT set display here — it would override Tailwind md:hidden
+     and duplicate mobile + desktop grids on larger screens. */
+  .snap-rail {
+    gap: 0.875rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(20px, env(safe-area-inset-left));
+    padding-block: 2px 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .snap-rail::-webkit-scrollbar { display: none; }
 }
 
-/* Reveal: CSS transition, JS only flips the flag. Keeps the page visible
-   when scripts are blocked and when motion is reduced. */
+/* Room for sticky mobile CTA when it is showing */
+body:has([data-mobile-cta="visible"]) #main {
+  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
+}
+body:has([data-nav-open="true"]) [data-mobile-cta] {
+  transform: translateY(100%) !important;
+  pointer-events: none !important;
+}
+@media (min-width: 768px) {
+  body:has([data-mobile-cta="visible"]) #main {
+    padding-bottom: 0;
+  }
+}
+
+/* Reveal — fade + short rise + micro-scale (GPU-friendly). */
 .rise {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  overflow: visible !important;
   transition:
-    opacity 500ms var(--ease) var(--rise-delay, 0s),
-    transform 500ms var(--ease) var(--rise-delay, 0s);
+    opacity 560ms var(--ease) var(--rise-delay, 0s),
+    transform 560ms var(--ease) var(--rise-delay, 0s);
+  will-change: opacity, transform;
 }
-.rise[data-shown="true"] { opacity: 1; transform: none; }
+.rise[data-shown="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+@media (max-width: 767px) {
+  .rise {
+    transform: translate3d(0, 12px, 0) scale(0.99);
+    transition-duration: 420ms;
+  }
+  .rise[data-shown="true"] {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
 
 @media (scripting: none) {
-  .rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .rise {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -193,5 +529,22 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .rise { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .rise {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+  .press:active { transform: none; opacity: 1; }
+  .card-lift:hover { transform: none; box-shadow: var(--shadow-sm); }
+  .hero-wash,
+  .mock-pulse,
+  .chart-draw,
+  .chart-fill,
+  .marquee-track,
+  .float-slow {
+    animation: none !important;
+  }
+  .chart-draw { stroke-dashoffset: 0 !important; }
+  .chart-fill { opacity: 1 !important; }
 }

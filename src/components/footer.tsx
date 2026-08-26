@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-dark-line bg-dark">
+    <footer id="site-footer" className="border-t border-dark-line bg-dark">
       <div className="shell py-14 md:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.1fr] lg:gap-12">
           <div>

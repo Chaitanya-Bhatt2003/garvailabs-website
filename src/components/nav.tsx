@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
 import { nav } from "@/lib/site";
 import { services } from "@/lib/services";
+import { duration, easeOut } from "@/lib/motion";
 
 function isActive(href: string, pathname: string) {
   if (href === "/") return pathname === "/";
@@ -19,6 +21,7 @@ export function Nav() {
   const pathname = usePathname();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 6);
@@ -65,8 +68,11 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
-        scrolled || open ? "border-b border-line bg-bg/90 backdrop-blur-xl" : "border-b border-transparent"
+      data-nav-open={open ? "true" : "false"}
+      className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[background-color,border-color,box-shadow] duration-300 ${
+        scrolled || open
+          ? "border-b border-line bg-bg/75 shadow-[var(--shadow-sm)] backdrop-blur-2xl"
+          : "border-b border-transparent"
       }`}
     >
       <nav className="shell flex h-16 items-center justify-between md:h-[76px]" aria-label="Primary">
@@ -74,15 +80,16 @@ export function Nav() {
           <Wordmark />
         </Link>
 
-        {/* desktop */}
         <div className="hidden items-center gap-1 md:flex">
           {nav.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={isActive(l.href, pathname) ? "page" : undefined}
-              className={`inline-flex min-h-11 items-center rounded-full px-4 text-base transition-colors duration-200 ${
-                isActive(l.href, pathname) ? "text-text" : "text-muted hover:text-text"
+              className={`nav-link inline-flex min-h-11 items-center rounded-full px-4 text-base transition-[color,background-color] duration-200 ${
+                isActive(l.href, pathname)
+                  ? "bg-soft/80 text-text"
+                  : "text-muted hover:bg-soft/60 hover:text-text"
               }`}
             >
               {l.label}
@@ -90,7 +97,7 @@ export function Nav() {
           ))}
           <Link
             href="/contact"
-            className="ml-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-base font-semibold text-on-accent transition-colors duration-200 hover:bg-accent-hover"
+            className="btn-primary press ml-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)] transition-[background-color,box-shadow] duration-200 hover:bg-accent-hover"
           >
             Book a call
           </Link>
@@ -103,59 +110,83 @@ export function Nav() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-text md:hidden"
+          className="press -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-text md:hidden"
         >
           {open ? <X size={21} /> : <Menu size={21} />}
         </button>
       </nav>
 
-      {/* mobile — full sheet, scrollable, services expanded inline */}
-      <div
-        id="mobile-nav"
-        ref={panelRef}
-        hidden={!open}
-        className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-bg md:hidden"
-      >
-        <div className="shell flex flex-col py-5">
-          <Link
-            href="/services"
-            className="flex min-h-12 items-center rounded-xl px-2 text-lg font-medium hover:bg-soft"
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id="mobile-nav"
+            ref={panelRef}
+            key="mobile-nav"
+            initial={reduce ? false : { height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={reduce ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: duration.base, ease: easeOut }}
+            className="overflow-hidden border-t border-line bg-bg md:hidden"
           >
-            Services
-          </Link>
-          <ul className="mb-2 ml-2 flex flex-col border-l border-line pl-4">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="flex min-h-11 items-center text-base text-muted hover:text-text"
-                >
-                  {s.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {nav
-            .filter((l) => l.href !== "/services")
-            .map((l) => (
+            <div className="shell flex max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto py-5">
               <Link
-                key={l.href}
-                href={l.href}
-                className="flex min-h-12 items-center rounded-xl px-2 text-lg font-medium hover:bg-soft"
+                href="/services"
+                className="flex min-h-12 items-center rounded-xl px-2 text-lg font-medium transition-colors hover:bg-soft"
               >
-                {l.label}
+                Services
               </Link>
-            ))}
+              <ul className="mb-2 ml-2 flex flex-col border-l border-line pl-4">
+                {services.map((s, i) => (
+                  <motion.li
+                    key={s.slug}
+                    initial={reduce ? false : { opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.03 + i * 0.028, duration: duration.fast, ease: easeOut }}
+                  >
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="flex min-h-11 items-center text-base text-muted transition-colors hover:text-text"
+                    >
+                      {s.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
 
-          <Link
-            href="/contact"
-            className="mt-4 inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-5 font-semibold text-on-accent"
-          >
-            Book a call
-          </Link>
-        </div>
-      </div>
+              {nav
+                .filter((l) => l.href !== "/services")
+                .map((l, i) => (
+                  <motion.div
+                    key={l.href}
+                    initial={reduce ? false : { opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.035, duration: duration.fast, ease: easeOut }}
+                  >
+                    <Link
+                      href={l.href}
+                      className="flex min-h-12 items-center rounded-xl px-2 text-lg font-medium transition-colors hover:bg-soft"
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                ))}
+
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.18, duration: duration.base, ease: easeOut }}
+              >
+                <Link
+                  href="/contact"
+                  className="press mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-5 font-semibold text-on-accent"
+                >
+                  Book a call
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

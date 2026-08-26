@@ -60,7 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <p className="eyebrow mt-6">{service.name}</p>
               </Rise>
               <Rise delay={0.14}>
-                <h1 className="mt-4 max-w-[18ch] text-5xl leading-[1.06]">
+                <h1 className="mt-4 max-w-[18ch] text-5xl">
                   {service.headline}
                 </h1>
               </Rise>

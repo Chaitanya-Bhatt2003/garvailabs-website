@@ -20,7 +20,7 @@ export default function ServicesIndex() {
             <p className="eyebrow">Services</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[18ch] text-6xl leading-[1.05]">
+            <h1 className="mt-5 max-w-[18ch] text-6xl">
               Six ways we take work off your team.
             </h1>
           </Rise>
@@ -36,15 +36,15 @@ export default function ServicesIndex() {
 
       <section className="band">
         <div className="shell">
-          <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {services.map((s, i) => (
               <Rise key={s.slug} delay={(i % 3) * 0.06} className="h-full">
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group flex h-full flex-col bg-bg p-7 transition-colors duration-200 hover:bg-surface md:p-9"
+                  className="press card-lift group flex h-full flex-col rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] transition-colors duration-200 md:p-9"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft text-accent-text">
-                    <s.icon size={18} strokeWidth={1.9} aria-hidden="true" />
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-text transition-transform duration-300 group-hover:scale-105">
+                    <s.icon size={20} strokeWidth={1.9} aria-hidden="true" />
                   </span>
                   <h2 className="mt-6 text-xl">{s.name}</h2>
                   <p className="mt-3 flex-1 text-base leading-relaxed text-muted">{s.short}</p>
@@ -54,7 +54,7 @@ export default function ServicesIndex() {
                       size={15}
                       strokeWidth={2.2}
                       aria-hidden="true"
-                      className="transition-transform duration-200 group-hover:translate-x-0.5"
+                      className="arrow-nudge"
                     />
                   </span>
                 </Link>
@@ -63,7 +63,7 @@ export default function ServicesIndex() {
           </div>
 
           <Rise delay={0.2}>
-            <div className="mt-12 flex flex-col items-start gap-5 rounded-lg border border-line bg-soft p-8 sm:flex-row sm:items-center sm:justify-between md:p-10">
+            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Not sure which of these your problem needs? Describe the workflow and we will tell
                 you — including if the answer is none of them.

@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { Check, Clock3, LayoutGrid, ListChecks, PieChart, Settings2, ShieldCheck } from "lucide-react";
 
 /* ------------------------------------------------------------------ *
@@ -36,9 +39,17 @@ const queue = [
 // Two rows read as "a queue"; three started to read as "a table".
 const visibleQueue = queue.slice(0, 2);
 
-export function ProductMock() {
+export function ProductMock({ framed = false }: { framed?: boolean }) {
+  const fillId = `mockFill-${useId().replace(/:/g, "")}`;
+
   return (
-    <div className="overflow-hidden rounded-lg border border-line bg-surface">
+    <div
+      className={`min-w-0 max-w-full overflow-hidden bg-surface ${
+        framed
+          ? "rounded-none border-0 shadow-none"
+          : "rounded-xl border border-line shadow-[var(--shadow-md)]"
+      }`}
+    >
       {/* app bar */}
       <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-3 sm:px-4">
         <div className="flex items-center gap-2.5">
@@ -51,7 +62,7 @@ export function ProductMock() {
           <span className="text-sm font-semibold">Agent Control</span>
         </div>
         <span className="inline-flex min-w-0 shrink items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-2xs font-semibold text-accent-text">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+          <span className="mock-pulse h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
           <span className="truncate">4 agents running</span>
         </span>
       </div>
@@ -79,7 +90,7 @@ export function ProductMock() {
               { k: "With a human", v: "6" },
               { k: "First reply", v: "38s" },
             ].map((s) => (
-              <div key={s.k} className="min-w-0 rounded-card border border-line bg-bg px-2.5 py-2.5 sm:px-3">
+              <div key={s.k} className="min-w-0 rounded-card border border-line bg-soft/60 px-2.5 py-2.5 sm:px-3">
                 <p className="text-2xs uppercase leading-tight tracking-[0.08em] text-muted">{s.k}</p>
                 <p className="num mt-1 text-xl">{s.v}</p>
               </div>
@@ -87,7 +98,7 @@ export function ProductMock() {
           </div>
 
           {/* chart */}
-          <div className="mt-3 rounded-card border border-line bg-bg p-3.5">
+          <div className="mt-3 rounded-card border border-line bg-soft/50 p-3.5">
             <div className="mb-2.5 flex items-baseline justify-between">
               <p className="text-xs font-medium">Cases closed by agents</p>
               <p className="num text-xs text-muted">+41% this month</p>
@@ -99,7 +110,7 @@ export function ProductMock() {
               aria-label="Chart showing cases closed by agents rising steadily over twelve weeks"
             >
               <defs>
-                <linearGradient id="mockFill" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.24" />
                   <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
                 </linearGradient>
@@ -115,9 +126,26 @@ export function ProductMock() {
                   strokeWidth="1"
                 />
               ))}
-              <path d={`${line} L ${W} ${H} L 0 ${H} Z`} fill="url(#mockFill)" />
-              <path d={line} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
-              <circle cx={W} cy={H - (series[series.length - 1] / MAX) * H} r="3" fill="var(--accent)" />
+              <path
+                className="chart-fill"
+                d={`${line} L ${W} ${H} L 0 ${H} Z`}
+                fill={`url(#${fillId})`}
+              />
+              <path
+                className="chart-draw"
+                d={line}
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <circle
+                className="chart-fill"
+                cx={W}
+                cy={H - (series[series.length - 1] / MAX) * H}
+                r="3"
+                fill="var(--accent)"
+              />
             </svg>
           </div>
 
@@ -126,7 +154,7 @@ export function ProductMock() {
             {visibleQueue.map((q) => (
               <li
                 key={q.id}
-                className="flex items-center gap-3 rounded-card border border-line bg-bg px-3 py-2.5"
+                className="flex items-center gap-3 rounded-card border border-line bg-soft/50 px-3 py-2.5"
               >
                 <span className="num hidden text-2xs text-muted sm:block">{q.id}</span>
                 <span className="min-w-0 flex-1 truncate text-xs">{q.text}</span>
@@ -145,7 +173,7 @@ export function ProductMock() {
 
           {/* The approval step is the product's thesis, so it sits inside the
               frame rather than floating outside the column. */}
-          <div className="mt-3 rounded-card border border-line bg-bg p-3.5">
+          <div className="mt-3 rounded-card border border-line bg-soft/50 p-3.5">
             <div className="flex items-center gap-2">
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-soft text-muted">
                 <Clock3 size={12} aria-hidden="true" />

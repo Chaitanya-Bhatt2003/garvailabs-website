@@ -25,7 +25,7 @@ export default function ContactPage() {
             <p className="eyebrow">Contact</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-6 max-w-[15ch] text-5xl leading-[1.05]">
+            <h1 className="mt-6 max-w-[15ch] text-5xl">
               Tell us the workflow.
             </h1>
           </Rise>

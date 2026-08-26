@@ -20,7 +20,7 @@ export default function WorkIndex() {
             <p className="eyebrow">Work</p>
           </Rise>
           <Rise delay={0.06}>
-            <h1 className="mt-5 max-w-[18ch] text-6xl leading-[1.05]">
+            <h1 className="mt-5 max-w-[18ch] text-6xl">
               Systems running in the field.
             </h1>
           </Rise>
@@ -35,12 +35,12 @@ export default function WorkIndex() {
 
       <section className="band">
         <div className="shell">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {caseStudies.map((c, i) => (
               <Rise as="article" key={c.slug} delay={(i % 2) * 0.06}>
                 <Link
                   href={`/work/${c.slug}`}
-                  className="group grid gap-7 rounded-lg border border-line bg-surface p-7 transition-colors duration-200 hover:border-line-strong md:p-10 lg:grid-cols-[1.4fr_0.6fr] lg:items-center lg:gap-12"
+                  className="press card-lift group grid gap-7 rounded-xl border border-line bg-surface p-7 shadow-[var(--shadow-sm)] transition-[border-color,transform,opacity,box-shadow] duration-200 md:p-10 lg:grid-cols-[1.4fr_0.6fr] lg:items-center lg:gap-12"
                 >
                   <div>
                     <p className="eyebrow">{c.sector}</p>
@@ -56,13 +56,13 @@ export default function WorkIndex() {
                         size={15}
                         strokeWidth={2.2}
                         aria-hidden="true"
-                        className="transition-transform duration-200 group-hover:translate-x-0.5"
+                        className="arrow-nudge"
                       />
                     </span>
                   </div>
 
-                  <div className="rounded-card border border-line bg-soft p-6 lg:p-7">
-                    <p className="num text-5xl leading-none text-accent-text">
+                  <div className="rounded-card border border-line bg-soft/80 p-6 lg:p-7">
+                    <p className="num text-5xl text-accent-text">
                       {c.headline.value}
                     </p>
                     <p className="mt-3 text-base leading-snug text-muted">{c.headline.label}</p>
@@ -73,7 +73,7 @@ export default function WorkIndex() {
           </div>
 
           <Rise delay={0.16}>
-            <div className="mt-12 flex flex-col items-start gap-5 rounded-lg border border-line bg-soft p-8 sm:flex-row sm:items-center sm:justify-between md:p-10">
+            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Every one of these started as a single workflow somebody was doing by hand.
               </p>

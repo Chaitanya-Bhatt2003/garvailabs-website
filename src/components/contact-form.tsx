@@ -48,6 +48,9 @@ function compose(f: Fields) {
   return { body, href: `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}` };
 }
 
+const fieldClass =
+  "h-14 w-full rounded-card border bg-soft/50 px-4 text-base placeholder:text-muted/55 transition-[border-color,box-shadow,background-color] duration-200 focus:border-accent focus:bg-surface focus:shadow-[0_0_0_3px_var(--accent-soft)]";
+
 export function ContactForm() {
   const [fields, setFields] = useState<Fields>({
     name: "",
@@ -83,7 +86,7 @@ export function ContactForm() {
   if (done) {
     const draft = compose(fields);
     return (
-      <div className="rounded-lg border border-line bg-surface p-8 md:p-10" role="status" aria-live="polite">
+      <div className="rounded-lg border border-line bg-surface p-6 shadow-[var(--shadow-md)] sm:p-8 md:p-10" role="status" aria-live="polite">
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft text-accent-text">
           <MailOpen size={19} aria-hidden="true" />
         </span>
@@ -106,7 +109,7 @@ export function ContactForm() {
           <pre className="mt-3 max-h-40 overflow-auto whitespace-pre-wrap break-words rounded-card border border-line bg-surface p-3 text-xs leading-relaxed text-muted">
             {draft.body}
           </pre>
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+          <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2">
             <button
               type="button"
               onClick={async () => {
@@ -118,7 +121,7 @@ export function ContactForm() {
                   setCopied(false);
                 }
               }}
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-accent-text hover:underline"
+              className="press inline-flex min-h-12 items-center gap-2 text-sm font-medium text-accent-text hover:underline"
             >
               {copied ? (
                 <>
@@ -132,7 +135,7 @@ export function ContactForm() {
             </button>
             <a
               href={draft.href}
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted hover:text-accent-text"
+              className="press inline-flex min-h-12 items-center gap-2 text-sm font-medium text-muted hover:text-accent-text"
             >
               <Mail size={14} aria-hidden="true" /> Open my email app again
             </a>
@@ -145,7 +148,7 @@ export function ContactForm() {
             setFields({ name: "", email: "", company: "", focus: focuses[0], message: "" });
             setDone(false);
           }}
-          className="mt-7 inline-flex min-h-11 items-center text-base font-medium text-accent-text hover:underline"
+          className="press mt-7 inline-flex min-h-12 items-center text-base font-medium text-accent-text hover:underline"
         >
           Write a different request
         </button>
@@ -156,7 +159,7 @@ export function ContactForm() {
   const list = (Object.keys(errors) as (keyof Fields)[]).filter((k) => errors[k]);
 
   return (
-    <form onSubmit={onSubmit} noValidate className="rounded-lg border border-line bg-surface p-7 md:p-9">
+    <form onSubmit={onSubmit} noValidate className="rounded-xl border border-line bg-surface p-5 shadow-[var(--shadow-md)] sm:p-7 md:p-9">
       <div
         ref={summary}
         tabIndex={-1}
@@ -177,13 +180,41 @@ export function ContactForm() {
         )}
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label="Your name" value={fields.name} onChange={set("name")} error={errors.name} autoComplete="name" placeholder="Ananya Sharma" />
-        <Field id="email" label="Work email" type="email" value={fields.email} onChange={set("email")} error={errors.email} autoComplete="email" placeholder="you@company.in" />
+      <div className="grid gap-5 md:grid-cols-2">
+        <Field
+          id="name"
+          label="Your name"
+          value={fields.name}
+          onChange={set("name")}
+          error={errors.name}
+          autoComplete="name"
+          autoCapitalize="words"
+          placeholder="Ananya Sharma"
+        />
+        <Field
+          id="email"
+          label="Work email"
+          type="email"
+          value={fields.email}
+          onChange={set("email")}
+          error={errors.email}
+          autoComplete="email"
+          inputMode="email"
+          enterKeyHint="next"
+          placeholder="you@company.in"
+        />
       </div>
 
-      <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        <Field id="company" label="Company" value={fields.company} onChange={set("company")} error={errors.company} autoComplete="organization" placeholder="Company or team name" />
+      <div className="mt-5 grid gap-5 md:grid-cols-2">
+        <Field
+          id="company"
+          label="Company"
+          value={fields.company}
+          onChange={set("company")}
+          error={errors.company}
+          autoComplete="organization"
+          placeholder="Company or team name"
+        />
         <div>
           <label htmlFor="focus" className="mb-2 block text-sm font-medium">
             What do you need?
@@ -192,7 +223,7 @@ export function ContactForm() {
             id="focus"
             value={fields.focus}
             onChange={set("focus")}
-            className="h-12 w-full rounded-card border border-line bg-bg px-3.5 text-base focus:border-accent"
+            className={`${fieldClass} appearance-none`}
           >
             {focuses.map((f) => (
               <option key={f} value={f}>
@@ -214,8 +245,9 @@ export function ContactForm() {
           onChange={set("message")}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
+          enterKeyHint="done"
           placeholder="e.g. Four people answer the same delivery questions every morning from three different systems."
-          className={`w-full resize-y rounded-card border bg-bg px-3.5 py-3 text-base leading-relaxed focus:border-accent ${
+          className={`w-full resize-y rounded-card border bg-soft/50 px-4 py-3.5 text-base leading-relaxed transition-[border-color,box-shadow,background-color] duration-200 focus:border-accent focus:bg-surface focus:shadow-[0_0_0_3px_var(--accent-soft)] ${
             errors.message ? "border-line-strong" : "border-line"
           }`}
         />
@@ -226,15 +258,17 @@ export function ContactForm() {
         )}
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <div className="cta-stack mt-8">
         <button
           type="submit"
-          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-7 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover"
+          className="btn-primary press inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-accent px-7 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)] transition-[background-color,box-shadow] hover:bg-accent-hover max-[480px]:w-full"
         >
           Write my request
           <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
         </button>
-        <p className="text-sm text-muted">Opens your email app with the details filled in.</p>
+        <p className="text-center text-sm text-muted sm:text-left">
+          Opens your email app with the details filled in.
+        </p>
       </div>
     </form>
   );
@@ -255,9 +289,7 @@ function Field({
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`h-12 w-full rounded-card border bg-bg px-3.5 text-base placeholder:text-muted/55 focus:border-accent ${
-          error ? "border-line-strong" : "border-line"
-        }`}
+        className={`${fieldClass} ${error ? "border-line-strong" : "border-line"}`}
         {...rest}
       />
       {error && (

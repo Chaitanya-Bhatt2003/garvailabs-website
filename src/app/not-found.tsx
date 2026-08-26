@@ -5,7 +5,7 @@ export default function NotFound() {
     <section className="page-top pb-32">
       <div className="shell max-w-2xl">
         <p className="num text-5xl text-muted">404</p>
-        <h1 className="mt-6 max-w-[16ch] text-5xl leading-[1.08]">
+        <h1 className="mt-6 max-w-[16ch] text-5xl">
           The agent looked. This page is not here.
         </h1>
         <p className="mt-5 max-w-[48ch] text-md leading-relaxed text-muted">

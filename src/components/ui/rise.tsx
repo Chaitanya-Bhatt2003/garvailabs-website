@@ -7,21 +7,29 @@ type RiseProps = {
   delay?: number;
   className?: string;
   as?: "div" | "section" | "li" | "article" | "header";
+  /** Once visible, keep shown (default). Set false to allow re-trigger — unused for now. */
+  once?: boolean;
 };
 
 /**
- * Subtle scroll reveal. The transition itself is CSS (.rise in globals.css) so
- * the reduced-motion and no-JS overrides can win without any script running —
- * this component only flips `data-shown`.
+ * Scroll reveal — CSS-driven (transform + opacity) for perf.
+ * Component only toggles `data-shown` when the node enters view.
  */
-export function Rise({ children, delay = 0, className = "", as = "div" }: RiseProps) {
+export function Rise({
+  children,
+  delay = 0,
+  className = "",
+  as = "div",
+  once = true,
+}: RiseProps) {
   const Tag = as as "div";
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || shown) return;
+    if (!el || (once && shown)) return;
+
     if (
       typeof IntersectionObserver === "undefined" ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -29,20 +37,25 @@ export function Rise({ children, delay = 0, className = "", as = "div" }: RisePr
       setShown(true);
       return;
     }
+
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
             setShown(true);
-            io.disconnect();
+            if (once) io.disconnect();
           }
         }
       },
-      { rootMargin: "0px 0px -70px 0px" },
+      {
+        // Trigger slightly early so motion feels continuous while scrolling
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.08,
+      },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [shown]);
+  }, [once, shown]);
 
   return (
     <Tag
