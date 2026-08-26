@@ -12,7 +12,7 @@ export default function NotFound() {
           It checked the routes, found nothing, and did what it is built to do — stopped instead of
           guessing.
         </p>
-        <div className="mt-9 flex flex-wrap gap-3">
+        <div className="cta-stack mt-9">
           <Cta href="/" arrow>
             Back to the homepage
           </Cta>

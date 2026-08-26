@@ -59,10 +59,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
           {/* results up top — the reason to keep reading */}
           <Rise delay={0.18}>
-            <dl className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+            <dl className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
               {study.results.map((r) => (
                 <div key={r.label} className="bg-surface p-6 md:p-7">
-                  <dt className="num text-4xl leading-none text-accent-text">
+                  <dt className="num text-3xl leading-none text-accent-text sm:text-4xl">
                     {r.value}
                   </dt>
                   <dd className="mt-3 text-base leading-snug text-muted">{r.label}</dd>

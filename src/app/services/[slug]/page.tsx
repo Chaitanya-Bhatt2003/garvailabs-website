@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <Rise className="max-w-2xl">
               <h2 className="text-4xl">Where we have done this</h2>
             </Rise>
-            <div className="mt-10 grid gap-4 md:mt-12 lg:grid-cols-3">
+            <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2 lg:grid-cols-3">
               {related.map((c, i) => (
                 <Rise key={c.slug} delay={i * 0.07} className="h-full">
                   <Link
@@ -176,7 +176,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <Rise>
             <h2 className="text-3xl">Other services</h2>
           </Rise>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {others.map((s, i) => (
               <Rise key={s.slug} delay={i * 0.06} className="h-full">
                 <Link

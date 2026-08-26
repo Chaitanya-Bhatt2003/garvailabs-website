@@ -68,7 +68,7 @@ export function MobileCtaBar() {
   return (
     <div
       data-mobile-cta={visible ? "visible" : "hidden"}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/80 shadow-[var(--shadow-md)] backdrop-blur-2xl transition-transform duration-300 ease-out md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/80 shadow-[var(--shadow-md)] backdrop-blur-2xl transition-transform duration-300 ease-out lg:hidden ${
         visible ? "translate-y-0" : "translate-y-full pointer-events-none"
       }`}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}

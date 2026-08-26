@@ -73,11 +73,11 @@ export default function WorkIndex() {
           </div>
 
           <Rise delay={0.18} from="soft">
-            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
+            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] md:flex-row md:items-center md:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Every one of these started as a single workflow somebody was doing by hand.
               </p>
-              <Cta href="/contact" arrow className="shrink-0">
+              <Cta href="/contact" arrow className="w-full shrink-0 sm:w-auto">
                 Start with yours
               </Cta>
             </div>

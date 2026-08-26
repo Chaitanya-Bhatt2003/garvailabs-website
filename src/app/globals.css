@@ -107,6 +107,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
   }
 
   body {
@@ -169,6 +170,13 @@
     margin-inline: auto;
     padding-left: max(20px, env(safe-area-inset-left), clamp(20px, 1.2rem + 1.6vw, 44px));
     padding-right: max(20px, env(safe-area-inset-right), clamp(20px, 1.2rem + 1.6vw, 44px));
+  }
+
+  @media (max-width: 359px) {
+    .shell {
+      padding-left: max(14px, env(safe-area-inset-left));
+      padding-right: max(14px, env(safe-area-inset-right));
+    }
   }
 
   @media (min-width: 1600px) { .shell { max-width: 1280px; } }
@@ -466,8 +474,10 @@
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: max(20px, env(safe-area-inset-left));
+    scroll-padding-inline: max(20px, env(safe-area-inset-left), env(safe-area-inset-right));
+    padding-inline: max(20px, env(safe-area-inset-left), clamp(20px, 1.2rem + 1.6vw, 44px));
     padding-block: 2px 8px;
+    margin-inline: calc(-1 * max(20px, env(safe-area-inset-left), clamp(20px, 1.2rem + 1.6vw, 44px)));
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -482,7 +492,7 @@ body:has([data-nav-open="true"]) [data-mobile-cta] {
   transform: translateY(100%) !important;
   pointer-events: none !important;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   body:has([data-mobile-cta="visible"]) #main {
     padding-bottom: 0;
   }

@@ -32,7 +32,7 @@ export default function Home() {
           <Rise from="soft">
             <p className="eyebrow">Proof from delivered work</p>
           </Rise>
-          <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3 md:gap-5">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-10 md:gap-5 lg:grid-cols-3">
             {proof.map((p, i) => (
               <Rise
                 key={p.value}

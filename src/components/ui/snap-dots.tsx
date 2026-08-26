@@ -4,18 +4,20 @@ import { useEffect, useRef, useState } from "react";
 
 /** Dot indicators for horizontal snap carousels on mobile. */
 export function SnapDots({ count }: { count: number }) {
-  const railRef = useRef<HTMLDivElement>(null);
+  const dotsRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
-  // Parent must wrap: <div><div ref from clone...> — we attach via callback pattern:
-  // Consumer places SnapDots as sibling AFTER the rail, and we find it via layout effect.
   useEffect(() => {
-    const dotsHost = railRef.current;
+    const dotsHost = dotsRef.current;
     if (!dotsHost || count < 2) return;
-    const host = dotsHost.previousElementSibling as HTMLElement | null;
-    if (!host) return;
 
-    const cards = Array.from(host.children) as HTMLElement[];
+    // Structure is often: Rise → .snap-rail → cards, then SnapDots as sibling of Rise.
+    const prev = dotsHost.previousElementSibling as HTMLElement | null;
+    if (!prev) return;
+    const rail = (prev.matches(".snap-rail") ? prev : prev.querySelector(".snap-rail")) as HTMLElement | null;
+    if (!rail) return;
+
+    const cards = Array.from(rail.children) as HTMLElement[];
     if (!cards.length) return;
 
     const io = new IntersectionObserver(
@@ -27,7 +29,7 @@ export function SnapDots({ count }: { count: number }) {
         const idx = cards.indexOf(visible.target as HTMLElement);
         if (idx >= 0) setActive(idx);
       },
-      { root: host, threshold: 0.55 },
+      { root: rail, threshold: 0.55 },
     );
     cards.forEach((c) => io.observe(c));
     return () => io.disconnect();
@@ -37,7 +39,7 @@ export function SnapDots({ count }: { count: number }) {
 
   return (
     <div
-      ref={railRef}
+      ref={dotsRef}
       className="mt-4 flex items-center justify-center gap-2 md:hidden"
       role="tablist"
       aria-label="Carousel position"

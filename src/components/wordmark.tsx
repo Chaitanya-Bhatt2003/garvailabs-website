@@ -16,7 +16,7 @@ export function Wordmark({ tone = "light" }: { tone?: "light" | "dark" }) {
       height={195}
       priority
       sizes="(max-width: 768px) 158px, 189px"
-      className="block h-[30px] w-auto md:h-[36px]"
+      className="block h-[26px] w-auto min-[360px]:h-[30px] lg:h-[36px]"
     />
   );
 }

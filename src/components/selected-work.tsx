@@ -59,7 +59,7 @@ export function SelectedWork({ limit = 3 }: { limit?: number }) {
         <SnapDots count={items.length} />
       </div>
 
-      <div className="hidden gap-5 md:grid lg:grid-cols-3">
+      <div className="hidden gap-5 md:grid md:grid-cols-2 lg:grid-cols-3">
         {items.map((c, i) => (
           <Rise
             as="article"

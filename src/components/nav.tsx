@@ -78,12 +78,12 @@ export function Nav() {
           : "border-b border-transparent"
       }`}
     >
-      <nav className="shell flex h-16 items-center justify-between md:h-[76px]" aria-label="Primary">
+      <nav className="shell flex h-16 items-center justify-between lg:h-[76px]" aria-label="Primary">
         <Link href="/" className="flex min-h-11 shrink-0 items-center" aria-label="GARV AI LABS — home">
           <Wordmark />
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {nav.map((l) => (
             <Link
               key={l.href}
@@ -113,7 +113,7 @@ export function Nav() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="press -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-text md:hidden"
+          className="press -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-text lg:hidden"
         >
           {open ? <X size={21} /> : <Menu size={21} />}
         </button>
@@ -129,9 +129,9 @@ export function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={reduce ? undefined : { height: 0, opacity: 0 }}
             transition={{ duration: duration.base, ease: easeOut }}
-            className="overflow-hidden border-t border-line bg-bg md:hidden"
+            className="overflow-hidden border-t border-line bg-bg lg:hidden"
           >
-            <div className="shell flex max-h-[calc(100dvh-4rem)] flex-col overflow-y-auto py-5">
+            <div className="shell flex max-h-[calc(100dvh-4rem-env(safe-area-inset-top))] flex-col overflow-y-auto py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
               <Link
                 href="/services"
                 className="flex min-h-12 items-center rounded-xl px-2 text-lg font-medium transition-colors hover:bg-soft"

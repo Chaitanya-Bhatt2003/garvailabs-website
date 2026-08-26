@@ -52,9 +52,15 @@ export function FinalCta() {
               </a>
             </div>
 
-            <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-dark-muted">
-              <Phone size={14} aria-hidden="true" />
-              {site.phone} · {site.hours}
+            <p className="mt-8 flex flex-col items-center gap-1 text-sm text-dark-muted sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-2 sm:gap-y-1">
+              <span className="inline-flex items-center gap-2">
+                <Phone size={14} aria-hidden="true" />
+                {site.phone}
+              </span>
+              <span className="hidden sm:inline" aria-hidden="true">
+                ·
+              </span>
+              <span>{site.hours}</span>
             </p>
           </div>
         </Rise>

@@ -24,7 +24,7 @@ export function SectionHeading({
         </div>
       </Rise>
       <Rise delay={delay + 0.07} from="up">
-        <h2 className="mt-5 text-3xl sm:text-4xl md:text-[2.65rem] md:leading-[1.2]">{title}</h2>
+        <h2 className="mt-5 text-3xl sm:text-4xl md:text-5xl">{title}</h2>
       </Rise>
       {body ? (
         <Rise delay={delay + 0.14} from="soft">

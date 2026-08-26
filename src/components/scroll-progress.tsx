@@ -31,7 +31,7 @@ export function ScrollProgress() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2.5px] bg-transparent"
+      className="pointer-events-none fixed inset-x-0 top-[env(safe-area-inset-top)] z-[60] h-[2.5px] bg-transparent"
       aria-hidden="true"
     >
       <div

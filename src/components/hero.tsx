@@ -52,9 +52,12 @@ export function Hero() {
           animate="show"
         >
           <motion.div variants={enter}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3.5 py-1.5 text-sm text-muted shadow-[var(--shadow-xs)] backdrop-blur-sm">
-              <Sparkles size={14} className="text-accent-text" aria-hidden="true" />
-              AI agents · software · apps from Kashipur
+            <span className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-line bg-surface/80 px-3.5 py-1.5 text-sm text-muted shadow-[var(--shadow-xs)] backdrop-blur-sm">
+              <Sparkles size={14} className="shrink-0 text-accent-text" aria-hidden="true" />
+              <span className="min-w-0">
+                <span className="sm:hidden">AI · software · apps from Kashipur</span>
+                <span className="hidden sm:inline">AI agents · software · apps from Kashipur</span>
+              </span>
             </span>
           </motion.div>
 

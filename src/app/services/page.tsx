@@ -68,12 +68,12 @@ export default function ServicesIndex() {
           </div>
 
           <Rise delay={0.22} from="soft">
-            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] sm:flex-row sm:items-center sm:justify-between md:p-10">
+            <div className="mt-12 flex flex-col items-start gap-5 rounded-xl border border-line bg-soft p-8 shadow-[var(--shadow-sm)] md:flex-row md:items-center md:justify-between md:p-10">
               <p className="max-w-[46ch] text-md leading-relaxed">
                 Not sure which of these your problem needs? Describe the workflow and we will tell
                 you — including if the answer is none of them.
               </p>
-              <Cta href="/contact" arrow className="shrink-0">
+              <Cta href="/contact" arrow className="w-full shrink-0 sm:w-auto">
                 Book a call
               </Cta>
             </div>
