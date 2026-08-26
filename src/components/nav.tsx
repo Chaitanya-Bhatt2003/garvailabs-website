@@ -67,8 +67,11 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header
+    <motion.header
       data-nav-open={open ? "true" : "false"}
+      initial={reduce ? false : { y: -16, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.45, ease: easeOut, delay: 0.05 }}
       className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[background-color,border-color,box-shadow] duration-300 ${
         scrolled || open
           ? "border-b border-line bg-bg/75 shadow-[var(--shadow-sm)] backdrop-blur-2xl"
@@ -187,6 +190,6 @@ export function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

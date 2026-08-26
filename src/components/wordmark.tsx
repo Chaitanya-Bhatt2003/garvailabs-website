@@ -1,36 +1,16 @@
 import Image from "next/image";
 
 /**
- * The real GARV AI LABS mark from garvailabs.com, trimmed to its content
- * bounds (1021×195). The source file carried transparent padding — 26/22px
- * left/right and an asymmetric 23/28px top/bottom — which both shrank the
- * mark inside its box and pushed it visually off-centre. Do not re-import
- * the untrimmed original.
- *
- * On dark grounds the PNG cannot be reused: its "AI LABS" lettering is black,
- * and inverting it would flatten the dotted-g out of the orange tile. So the
- * dark variant is set in type instead, following the same colour split.
+ * Official mark from garvaiLogo.png — dotted-g + GARV (coral) + AI LABS (ink).
+ * Cropped to content bounds (1021×195). Dark tone swaps ink to cream so the
+ * full lockup stays readable on the footer.
  */
 export function Wordmark({ tone = "light" }: { tone?: "light" | "dark" }) {
-  if (tone === "dark") {
-    return (
-      <span className="flex items-center gap-2.5">
-        <span
-          aria-hidden="true"
-          className="flex h-7 w-7 items-center justify-center rounded-md bg-accent font-display text-lg font-bold text-on-accent"
-        >
-          g
-        </span>
-        <span className="font-display text-lg font-bold tracking-[-0.01em] text-dark-text">
-          <span className="text-accent">GARV</span> AI LABS
-        </span>
-      </span>
-    );
-  }
+  const dark = tone === "dark";
 
   return (
     <Image
-      src="/garvai-logo.png"
+      src={dark ? "/garvai-logo-dark.png" : "/garvai-logo.png"}
       alt="GARV AI LABS"
       width={1021}
       height={195}

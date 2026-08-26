@@ -2,8 +2,17 @@
 
 import { MotionConfig } from "framer-motion";
 import type { ReactNode } from "react";
+import { TransitionProvider } from "@/components/transition/transition-provider";
+import { TransitionOverlay } from "@/components/transition/transition-overlay";
 
-/** Honors prefers-reduced-motion across all Framer Motion trees. */
+/** Motion + cinematic page overlays. Honors prefers-reduced-motion. */
 export function Providers({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <MotionConfig reducedMotion="user">
+      <TransitionProvider>
+        <TransitionOverlay />
+        {children}
+      </TransitionProvider>
+    </MotionConfig>
+  );
 }

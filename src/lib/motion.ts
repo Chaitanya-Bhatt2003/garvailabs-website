@@ -4,6 +4,8 @@
 
 export const easeOut = [0.22, 0.61, 0.36, 1] as const;
 export const easeUi = [0.2, 0, 0, 1] as const;
+/** Soft accelerate for exits / curtains */
+export const easeIn = [0.4, 0, 1, 1] as const;
 
 export const duration = {
   instant: 0.12,
@@ -11,6 +13,8 @@ export const duration = {
   base: 0.36,
   enter: 0.52,
   slow: 0.7,
+  page: 0.55,
+  boot: 0.85,
 } as const;
 
 /** Soft spring — expensive UI feel without bounce noise */
@@ -73,12 +77,15 @@ export const wordReveal = {
   },
 };
 
+/** Route settle after overlay reveal — keep subtle; overlay owns the drama */
 export const pageEnter = {
-  initial: { opacity: 0, y: 12, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 14 },
   animate: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.45, ease: easeOut },
+    transition: {
+      duration: 0.42,
+      ease: easeOut,
+    },
   },
 };
