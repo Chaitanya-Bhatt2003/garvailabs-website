@@ -1,7 +1,7 @@
 # GARV AI LABS — website
 
 Marketing site for GARV AI LABS: AI-native systems that declutter operations, unite disconnected
-systems and turn data into decisive action. Built from Kashipur, Uttarakhand.
+systems and turn data into decisive action. Built from Noida, Uttar Pradesh.
 
 ## Run it
 

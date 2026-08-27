@@ -7,8 +7,8 @@ export const site = {
   phone: "+91 97190 70711",
   phoneHref: "+919719070711",
   address: {
-    line1: "New Chamunda Vihar, Kashipur",
-    line2: "Udham Singh Nagar, Uttarakhand",
+    line1: "Noida",
+    line2: "Gautam Buddha Nagar, Uttar Pradesh",
     country: "India",
   },
   hours: "Mon–Sat, 10:00–19:00 IST",

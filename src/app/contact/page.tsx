@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Talk to GARV AI LABS about one real workflow. Kashipur, Uttarakhand, India. garvailabs@gmail.com · +91 97190 70711",
+    "Talk to GARV AI LABS about one real workflow. Noida, Uttar Pradesh, India. garvailabs@gmail.com · +91 97190 70711",
 };
 
 const agenda = [

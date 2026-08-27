@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   keywords: [
     "AI agents India",
     "AI automation",
-    "software development Kashipur",
+    "software development Noida",
     "mobile app development",
     "SEO",
     "generative engine optimization",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GARV AI LABS — Intelligence that finishes the work",
     description:
-      "AI agents, software, mobile apps, websites, SEO and GEO — built and run from Kashipur, Uttarakhand.",
+      "AI agents, software, mobile apps, websites, SEO and GEO — built and run from Noida, Uttar Pradesh.",
     url: SITE,
     siteName: "GARV AI LABS",
     locale: "en_IN",
@@ -71,8 +71,8 @@ const organizationSchema = {
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.line1,
-    addressLocality: "Kashipur",
-    addressRegion: "Uttarakhand",
+    addressLocality: "Noida",
+    addressRegion: "Uttar Pradesh",
     addressCountry: "IN",
   },
 };

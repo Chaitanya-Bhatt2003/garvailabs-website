@@ -9,7 +9,7 @@ import { services } from "@/lib/services";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "GARV AI LABS builds AI-native systems for businesses in India and beyond — from Kashipur, Uttarakhand.",
+    "GARV AI LABS builds AI-native systems for businesses in India and beyond — from Noida, Uttar Pradesh.",
 };
 
 const principles = [
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <Rise delay={0.14} from="soft">
             <p className="mt-6 max-w-[58ch] text-md leading-[1.65] text-muted">
               GARV AI LABS declutters operations, unites disconnected systems, and turns data into
-              decisive action. We work from Kashipur, Uttarakhand, with clients across India and
+              decisive action. We work from Noida, Uttar Pradesh, with clients across India and
               abroad — in agriculture, healthcare, government and maritime.
             </p>
           </Rise>
@@ -82,8 +82,8 @@ export default function AboutPage() {
                 finished afterwards.
               </p>
               <p>
-                We are a small team, which means we take on fewer projects and stay close to the
-                ones we do. You will talk to the people building it.
+                From the first scope through go-live, you talk to the people building it — not a
+                handoff chain between sales and delivery.
               </p>
             </div>
           </Rise>

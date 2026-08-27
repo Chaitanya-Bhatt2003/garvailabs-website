@@ -92,7 +92,7 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 26, color: "#625C58", fontSize: 22 }}>
-          <span>Kashipur, Uttarakhand</span>
+          <span>Noida, Uttar Pradesh</span>
           <span style={{ color: "rgba(18,17,16,0.22)" }}>|</span>
           <span>garvailabs.com</span>
         </div>

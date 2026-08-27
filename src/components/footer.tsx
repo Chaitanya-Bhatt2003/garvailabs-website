@@ -103,7 +103,7 @@ export function Footer() {
         <Rise delay={0.1} from="soft">
           <div className="mt-12 flex flex-col gap-3 border-t border-dark-line pt-7 text-sm text-dark-muted sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} GARV AI LABS</p>
-            <p>Kashipur, Uttarakhand, India · IST (UTC+5:30)</p>
+            <p>Noida, Uttar Pradesh, India · IST (UTC+5:30)</p>
           </div>
         </Rise>
       </div>

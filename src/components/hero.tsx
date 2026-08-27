@@ -55,8 +55,8 @@ export function Hero() {
             <span className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-line bg-surface/80 px-3.5 py-1.5 text-sm text-muted shadow-[var(--shadow-xs)] backdrop-blur-sm">
               <Sparkles size={14} className="shrink-0 text-accent-text" aria-hidden="true" />
               <span className="min-w-0">
-                <span className="sm:hidden">AI · software · apps from Kashipur</span>
-                <span className="hidden sm:inline">AI agents · software · apps from Kashipur</span>
+                <span className="sm:hidden">AI · software · apps from Noida</span>
+                <span className="hidden sm:inline">AI agents · software · apps from Noida</span>
               </span>
             </span>
           </motion.div>
@@ -78,7 +78,7 @@ export function Hero() {
           >
             <span className="md:hidden">
               AI agents, software, and apps that take repeat work off your team — built from
-              Kashipur.
+              Noida.
             </span>
             <span className="hidden md:inline">
               GARV AI LABS builds AI-native systems that declutter operations, unite disconnected

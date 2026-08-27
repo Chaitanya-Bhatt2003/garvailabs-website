@@ -130,7 +130,9 @@ export default function Home() {
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
                   <p className="eyebrow !text-accent-text">About</p>
                 </div>
-                <h2 className="mt-5 text-3xl sm:text-4xl">A small team in Kashipur, Uttarakhand.</h2>
+                <h2 className="mt-5 text-3xl sm:text-4xl">
+                  From first scope to go-live, you work with the builders.
+                </h2>
               </div>
               <Link
                 href="/about"
@@ -153,7 +155,7 @@ export default function Home() {
                 not worth automating rather than quoting for a build.
               </p>
               <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                {["Kashipur HQ", "Mon–Sat IST", "Written scopes"].map((chip) => (
+                {["Noida HQ", "Mon–Sat IST", "Written scopes"].map((chip) => (
                   <span
                     key={chip}
                     className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-muted"
