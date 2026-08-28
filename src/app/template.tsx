@@ -7,8 +7,7 @@ import type { ReactNode } from "react";
 import { easeOut } from "@/lib/motion";
 
 /**
- * Soft content settle after the full-screen overlay reveals.
- * Cover/uncover lives in TransitionOverlay (layout).
+ * Soft content settle on route change (boot intro uses TransitionOverlay).
  */
 export default function Template({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -23,9 +22,9 @@ export default function Template({ children }: { children: ReactNode }) {
   return (
     <motion.div
       key={pathname}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: easeOut, delay: 0.15 }}
+      transition={{ duration: 0.32, ease: easeOut }}
       className="will-change-[opacity,transform]"
     >
       {children}
