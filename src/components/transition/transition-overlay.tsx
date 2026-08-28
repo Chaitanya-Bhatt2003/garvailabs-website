@@ -6,8 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePageTransitionOptional, transitionTiming } from "@/components/transition/transition-provider";
 import { easeIn, easeOut, easePremium } from "@/lib/motion";
 
-/** Nominal-style bloom deceleration — soft landing at the end of the iris */
+/** Nominal-style bloom deceleration */
 const easeBloom = [0.33, 1, 0.68, 1] as const;
+const easeCover = [0.45, 0, 0.15, 1] as const;
 
 function TransitionLogo() {
   return (
@@ -73,8 +74,7 @@ function buildTiles(cols: number, rows: number): TileMeta[] {
 }
 
 /**
- * Boot-only intro — mosaic tiles close in, logo holds, then a Nominal-style
- * radial bloom opens from the center (iris + soft halo).
+ * Boot-only intro — 3s mosaic cover, logo hold, Nominal-style radial bloom out.
  */
 export function TransitionOverlay() {
   const ctx = usePageTransitionOptional();
@@ -85,7 +85,7 @@ export function TransitionOverlay() {
   if (!ctx || reduce) return null;
 
   const { phase } = ctx;
-  const visible = phase === "covering" || phase === "holding" || phase === "revealing";
+  const visible = phase !== "idle";
   const covering = phase === "covering";
   const holding = phase === "holding";
   const revealing = phase === "revealing";
@@ -93,11 +93,13 @@ export function TransitionOverlay() {
 
   const coverDur = transitionTiming.coverMs / 1000;
   const revealDur = transitionTiming.revealMs / 1000;
-  const coverStagger = coverDur * 0.48;
-  const coverTileDur = Math.max(0.38, coverDur - coverStagger * 0.92);
+  // Spread tile cascade across the full 3s cover window
+  const coverStagger = coverDur * 0.52;
+  const coverTileDur = Math.max(0.55, coverDur - coverStagger * 0.88);
+  const bloomStagger = revealDur * 0.52;
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {visible && (
         <motion.div
           key="transition-root"
@@ -107,27 +109,28 @@ export function TransitionOverlay() {
           aria-hidden="true"
           role="presentation"
         >
-          <div className="absolute inset-0 bg-dark" />
-
-          {/* Cover — mosaic tiles cascade inward */}
+          {/* Cover + hold — mosaic tiles cascade inward over 3s */}
           {mosaicVisible && (
-            <div
-              className="absolute inset-0 grid"
+            <motion.div
+              className="absolute inset-0 grid bg-dark"
               style={{
                 gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
                 gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
               }}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: revealing ? 0 : 1 }}
+              transition={{ duration: 0.15 }}
             >
               {tiles.map((tile) => (
                 <motion.div
                   key={tile.id}
                   className="relative min-h-0 min-w-0 will-change-transform"
                   style={{ transformOrigin: tile.origin }}
-                  initial={{ scale: 0, opacity: 0.94 }}
+                  initial={{ scale: 0, opacity: 0.9 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{
                     duration: coverTileDur,
-                    ease: easeIn,
+                    ease: easeCover,
                     delay: tile.dist * coverStagger,
                   }}
                 >
@@ -143,42 +146,37 @@ export function TransitionOverlay() {
                   ) : null}
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
 
-          {/* Reveal — Nominal-style radial bloom from center */}
+          {/* Reveal — radial bloom: tiles expand, iris opens, dual halo */}
           {revealing && (
             <>
-              {/* Tiles bloom outward (center → edges) before the iris clears */}
               <div
-                className="absolute inset-0 z-[8] grid"
+                className="absolute inset-0 grid bg-dark"
                 style={{
                   gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
                   gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
                 }}
               >
-                {tiles.map((tile) => {
-                  const bloomDelay = (1 - tile.dist) * revealDur * 0.42;
-                  return (
-                    <motion.div
-                      key={`bloom-${tile.id}`}
-                      className="relative min-h-0 min-w-0 will-change-transform"
-                      style={{ transformOrigin: "center center" }}
-                      initial={{ scale: 1, opacity: 1 }}
-                      animate={{ scale: 1.22, opacity: 0 }}
-                      transition={{
-                        duration: revealDur * 0.55,
-                        ease: easeBloom,
-                        delay: bloomDelay,
-                      }}
-                    >
-                      <div className="absolute inset-[0.5px] bg-dark sm:inset-[1px]" />
-                    </motion.div>
-                  );
-                })}
+                {tiles.map((tile) => (
+                  <motion.div
+                    key={`bloom-${tile.id}`}
+                    className="relative min-h-0 min-w-0 will-change-transform"
+                    style={{ transformOrigin: "center center" }}
+                    initial={{ scale: 1, opacity: 1 }}
+                    animate={{ scale: 1.38, opacity: 0 }}
+                    transition={{
+                      duration: revealDur * 0.72,
+                      ease: easeBloom,
+                      delay: (1 - tile.dist) * bloomStagger,
+                    }}
+                  >
+                    <div className="absolute inset-[0.5px] bg-dark sm:inset-[1px]" />
+                  </motion.div>
+                ))}
               </div>
 
-              {/* Iris — circular aperture opens from the logo focal point */}
               <motion.div
                 className="absolute inset-0 z-10 bg-dark will-change-[clip-path]"
                 initial={{ clipPath: "circle(150% at 50% 50%)" }}
@@ -186,35 +184,50 @@ export function TransitionOverlay() {
                 transition={{ duration: revealDur, ease: easeBloom }}
               />
 
-              {/* Soft bloom halo — accent pulse at the expanding edge */}
               <motion.div
-                className="pointer-events-none absolute left-1/2 top-1/2 z-[12] h-[min(88vw,520px)] w-[min(88vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                className="pointer-events-none absolute left-1/2 top-1/2 z-[12] h-[min(92vw,560px)] w-[min(92vw,560px)] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(238,99,82,0.22) 0%, rgba(238,99,82,0.06) 42%, transparent 72%)",
+                    "radial-gradient(circle, rgba(238,99,82,0.28) 0%, rgba(238,99,82,0.08) 42%, transparent 70%)",
                 }}
-                initial={{ scale: 0.15, opacity: 0.75 }}
-                animate={{ scale: 2.6, opacity: 0 }}
-                transition={{ duration: revealDur * 0.92, ease: easePremium }}
+                initial={{ scale: 0.08, opacity: 0.85 }}
+                animate={{ scale: 3.2, opacity: 0 }}
+                transition={{ duration: revealDur, ease: easePremium }}
+              />
+
+              <motion.div
+                className="pointer-events-none absolute left-1/2 top-1/2 z-[11] h-[min(60vw,380px)] w-[min(60vw,380px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/25"
+                initial={{ scale: 0.2, opacity: 0.5 }}
+                animate={{ scale: 2.4, opacity: 0 }}
+                transition={{ duration: revealDur * 0.88, ease: easeBloom, delay: 0.08 }}
               />
             </>
           )}
 
-          {/* Logo — holds, then dissolves into the bloom */}
+          {/* Logo — fades in during hold, dissolves into bloom */}
           <motion.div
             className="absolute inset-0 z-30 flex items-center justify-center px-6"
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.86 }}
             animate={{
               opacity: holding ? 1 : 0,
-              scale: holding ? 1 : revealing ? 1.1 : 0.92,
-              filter: revealing ? "blur(8px)" : "blur(0px)",
+              scale: holding ? 1 : revealing ? 1.12 : 0.9,
+              filter: revealing ? "blur(12px)" : "blur(0px)",
             }}
             transition={{
-              duration: revealing ? 0.38 : 0.45,
+              duration: holding ? 0.65 : revealing ? 0.55 : 0.35,
               ease: easeOut,
             }}
           >
-            <TransitionLogo />
+            <motion.div
+              animate={holding ? { scale: [1, 1.045, 1] } : { scale: 1 }}
+              transition={
+                holding
+                  ? { duration: 1.8, ease: easeOut, repeat: Infinity, repeatType: "mirror" }
+                  : { duration: 0.3 }
+              }
+            >
+              <TransitionLogo />
+            </motion.div>
           </motion.div>
         </motion.div>
       )}

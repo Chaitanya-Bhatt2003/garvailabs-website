@@ -5,13 +5,18 @@ import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { easeOut } from "@/lib/motion";
+import { usePageTransitionOptional } from "@/components/transition/transition-provider";
 
 /**
- * Soft content settle on route change (boot intro uses TransitionOverlay).
+ * Soft content settle — stays hidden during boot cover/hold so the intro reads cleanly.
  */
 export default function Template({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  const transition = usePageTransitionOptional();
+  const phase = transition?.phase ?? "idle";
+  const booting = phase === "covering" || phase === "holding";
+  const revealing = phase === "revealing";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,9 +27,12 @@ export default function Template({ children }: { children: ReactNode }) {
   return (
     <motion.div
       key={pathname}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.32, ease: easeOut }}
+      initial={false}
+      animate={{
+        opacity: booting ? 0 : 1,
+        y: booting ? 10 : 0,
+      }}
+      transition={{ duration: booting ? 0.25 : 0.55, ease: easeOut, delay: revealing ? 0.12 : 0 }}
       className="will-change-[opacity,transform]"
     >
       {children}

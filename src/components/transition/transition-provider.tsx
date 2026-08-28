@@ -19,6 +19,7 @@ type TransitionApi = {
 };
 
 const TransitionContext = createContext<TransitionApi | null>(null);
+const BOOT_FLAG = "garv-transition-booted";
 
 export function usePageTransition() {
   const ctx = useContext(TransitionContext);
@@ -32,20 +33,19 @@ export function usePageTransitionOptional() {
   return useContext(TransitionContext);
 }
 
-/** Boot-only intro — ~3.2s (cover → hold → reveal → settle) */
-const COVER_MS = 950;
-const REVEAL_MS = 1150;
-const REVEAL_SETTLE_MS = 200;
-const BOOT_HOLD_MS = 1050;
+/** Boot-only intro — 3s mosaic cover → hold → bloom reveal */
+const COVER_MS = 3000;
+const BOOT_HOLD_MS = 1200;
+const REVEAL_MS = 1600;
+const REVEAL_SETTLE_MS = 350;
 
 /**
  * Boot intro only — internal navigations use normal Next.js routing.
  */
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const [phase, setPhase] = useState<Phase>("idle");
-  const booted = useRef(false);
   const timers = useRef<number[]>([]);
-  const reduceRef = useRef(false);
+  const started = useRef(false);
 
   const clearTimers = () => {
     timers.current.forEach((id) => window.clearTimeout(id));
@@ -58,31 +58,37 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    reduceRef.current =
+    if (started.current) return;
+
+    const reduce =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
 
-  useEffect(() => {
-    if (booted.current) return;
-    booted.current = true;
+    if (reduce) return;
 
-    if (reduceRef.current) return;
-
+    let skip = false;
     try {
-      if (sessionStorage.getItem("garv-transition-booted")) return;
-      sessionStorage.setItem("garv-transition-booted", "1");
+      skip = Boolean(sessionStorage.getItem(BOOT_FLAG));
     } catch {
       /* ignore */
     }
+    if (skip) return;
 
+    started.current = true;
     setPhase("covering");
+
     schedule(() => setPhase("holding"), COVER_MS);
     schedule(() => setPhase("revealing"), COVER_MS + BOOT_HOLD_MS);
-    schedule(() => setPhase("idle"), COVER_MS + BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS);
+    schedule(() => {
+      setPhase("idle");
+      try {
+        sessionStorage.setItem(BOOT_FLAG, "1");
+      } catch {
+        /* ignore */
+      }
+    }, COVER_MS + BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS);
 
     return clearTimers;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -112,4 +118,5 @@ export const transitionTiming = {
   revealMs: REVEAL_MS,
   revealSettleMs: REVEAL_SETTLE_MS,
   bootHoldMs: BOOT_HOLD_MS,
+  totalMs: COVER_MS + BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS,
 } as const;
