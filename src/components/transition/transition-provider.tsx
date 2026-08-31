@@ -33,11 +33,11 @@ export function usePageTransitionOptional() {
   return useContext(TransitionContext);
 }
 
-/** Boot-only intro — 3s mosaic cover → hold → bloom reveal */
+/** Boot-only intro — 3s mosaic cover → hold → zoom-through reveal */
 const COVER_MS = 3000;
 const BOOT_HOLD_MS = 1200;
-const REVEAL_MS = 1600;
-const REVEAL_SETTLE_MS = 350;
+const REVEAL_MS = 2200;
+const REVEAL_SETTLE_MS = 450;
 
 /**
  * Boot intro only — internal navigations use normal Next.js routing.

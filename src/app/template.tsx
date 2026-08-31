@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { easeOut } from "@/lib/motion";
+import { easeOut, easePremium } from "@/lib/motion";
 import { usePageTransitionOptional } from "@/components/transition/transition-provider";
 
 /**
@@ -30,9 +30,26 @@ export default function Template({ children }: { children: ReactNode }) {
       initial={false}
       animate={{
         opacity: booting ? 0 : 1,
+        scale: booting ? 0.984 : 1,
         y: booting ? 10 : 0,
       }}
-      transition={{ duration: booting ? 0.25 : 0.55, ease: easeOut, delay: revealing ? 0.12 : 0 }}
+      transition={{
+        opacity: {
+          duration: revealing ? 1.05 : 0.45,
+          delay: revealing ? 0.52 : 0,
+          ease: easePremium,
+        },
+        scale: {
+          duration: revealing ? 1.1 : 0.5,
+          delay: revealing ? 0.48 : 0,
+          ease: easePremium,
+        },
+        y: {
+          duration: revealing ? 0.95 : 0.45,
+          delay: revealing ? 0.48 : 0,
+          ease: easeOut,
+        },
+      }}
       className="will-change-[opacity,transform]"
     >
       {children}
