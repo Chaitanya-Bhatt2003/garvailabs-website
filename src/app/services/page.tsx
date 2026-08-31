@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
 import { Cta } from "@/components/ui/button";
 import { services } from "@/lib/services";
+import { contactBookHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -73,7 +74,7 @@ export default function ServicesIndex() {
                 Not sure which of these your problem needs? Describe the workflow and we will tell
                 you — including if the answer is none of them.
               </p>
-              <Cta href="/contact" arrow className="w-full shrink-0 sm:w-auto">
+              <Cta href={contactBookHref} arrow className="w-full shrink-0 sm:w-auto">
                 Book a call
               </Cta>
             </div>

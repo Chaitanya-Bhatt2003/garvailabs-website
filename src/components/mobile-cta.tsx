@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { contactBookHref } from "@/lib/site";
 
 /**
  * Thumb-zone primary CTA on phones. Hidden on /contact, at the top of the
@@ -76,7 +77,7 @@ export function MobileCtaBar() {
     >
       <div className="shell flex items-center gap-3 py-3">
         <Link
-          href="/contact"
+          href={contactBookHref}
           tabIndex={visible ? 0 : -1}
           className="btn-primary press flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-accent px-5 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)]"
         >

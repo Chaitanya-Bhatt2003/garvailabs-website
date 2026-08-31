@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
-import { nav } from "@/lib/site";
+import { nav, contactBookHref } from "@/lib/site";
 import { services } from "@/lib/services";
 import { duration, easeOut } from "@/lib/motion";
 
@@ -99,7 +99,7 @@ export function Nav() {
             </Link>
           ))}
           <Link
-            href="/contact"
+            href={contactBookHref}
             className="btn-primary press ml-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)] transition-[background-color,box-shadow] duration-200 hover:bg-accent-hover"
           >
             Book a call
@@ -180,7 +180,7 @@ export function Nav() {
                 transition={{ delay: 0.18, duration: duration.base, ease: easeOut }}
               >
                 <Link
-                  href="/contact"
+                  href={contactBookHref}
                   className="press mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-5 font-semibold text-on-accent"
                 >
                   Book a call

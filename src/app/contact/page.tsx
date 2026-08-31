@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
 import { ContactForm } from "@/components/contact-form";
+import { ContactRequestScroll } from "@/components/contact-scroll";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -19,8 +20,9 @@ const agenda = [
 export default function ContactPage() {
   return (
     <section className="page-top band-b">
+      <ContactRequestScroll />
       <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <div>
+        <div className="order-2 lg:order-1">
           <Rise from="soft">
             <p className="eyebrow">Contact</p>
           </Rise>
@@ -83,8 +85,17 @@ export default function ContactPage() {
           </Rise>
         </div>
 
-        <Rise delay={0.16} from="right">
-          <ContactForm />
+        <Rise delay={0.16} from="right" className="order-1 lg:order-2">
+          <div id="request" className="scroll-mt-28">
+            <p className="eyebrow lg:hidden">Contact</p>
+            <h2 className="mt-4 text-3xl lg:hidden">Write your request</h2>
+            <p className="mt-3 max-w-[44ch] text-base leading-[1.65] text-muted lg:hidden">
+              Tell us the workflow — we will open your email app with the details filled in.
+            </p>
+            <div className="mt-6 lg:mt-0">
+              <ContactForm />
+            </div>
+          </div>
         </Rise>
       </div>
     </section>

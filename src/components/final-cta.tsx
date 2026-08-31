@@ -5,7 +5,7 @@ import { Mail, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Rise } from "@/components/ui/rise";
 import { Cta } from "@/components/ui/button";
-import { site } from "@/lib/site";
+import { site, contactBookHref } from "@/lib/site";
 import { easeOut } from "@/lib/motion";
 
 export function FinalCta() {
@@ -40,7 +40,7 @@ export function FinalCta() {
             </p>
 
             <div className="cta-stack mx-auto mt-10 max-w-md justify-center sm:max-w-none">
-              <Cta href="/contact" className="max-[480px]:w-full">
+              <Cta href={contactBookHref} className="max-[480px]:w-full">
                 Book a call
               </Cta>
               <a

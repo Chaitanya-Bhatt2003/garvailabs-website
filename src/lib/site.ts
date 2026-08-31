@@ -1,6 +1,9 @@
 export const SITE = "https://garvailabs.com";
 
 /** Contact details taken from garvailabs.com/contact-us. */
+/** Book-a-call CTAs land on the request form (mobile shows it first). */
+export const contactBookHref = "/contact#request";
+
 export const site = {
   name: "GARV AI LABS",
   email: "garvailabs@gmail.com",

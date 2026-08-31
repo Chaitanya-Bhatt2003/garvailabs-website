@@ -8,6 +8,7 @@ import { Cta } from "@/components/ui/button";
 import { ProductMock } from "@/components/product-mock";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { TiltFrame } from "@/components/ui/tilt-frame";
+import { contactBookHref } from "@/lib/site";
 import { duration, easeOut, fadeUpSoft, stagger } from "@/lib/motion";
 
 export function Hero() {
@@ -88,7 +89,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={enter} className="cta-stack mt-8 md:mt-10">
-            <Cta href="/contact" className="max-[480px]:w-full">
+            <Cta href={contactBookHref} className="max-[480px]:w-full">
               Book a call
             </Cta>
             <Link

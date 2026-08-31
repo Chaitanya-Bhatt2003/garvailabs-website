@@ -6,6 +6,7 @@ import { Rise } from "@/components/ui/rise";
 import { Cta } from "@/components/ui/button";
 import { services, getService } from "@/lib/services";
 import { caseStudies } from "@/lib/work";
+import { contactBookHref } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -210,7 +211,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </p>
             <div className="mt-9 flex justify-center">
               <Link
-                href="/contact"
+                href={contactBookHref}
                 className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-7 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover"
               >
                 Book a call
