@@ -21,10 +21,15 @@ export default function ContactPage() {
   return (
     <section className="page-top band-b">
       <ContactRequestScroll />
-      <div className="shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div className="shell">
+        <Rise from="soft" className="lg:hidden">
+          <p className="eyebrow">Contact</p>
+        </Rise>
+
+        <div className="mt-6 grid gap-14 lg:mt-0 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div className="order-2 lg:order-1">
           <Rise from="soft">
-            <p className="eyebrow">Contact</p>
+            <p className="eyebrow hidden lg:block">Contact</p>
           </Rise>
           <Rise delay={0.07} from="up">
             <h1 className="mt-6 max-w-[15ch] text-5xl">
@@ -87,8 +92,7 @@ export default function ContactPage() {
 
         <Rise delay={0.16} from="right" className="order-1 lg:order-2">
           <div id="request" className="scroll-mt-28">
-            <p className="eyebrow lg:hidden">Contact</p>
-            <h2 className="mt-4 text-3xl lg:hidden">Write your request</h2>
+            <h2 className="text-3xl lg:hidden">Write your request</h2>
             <p className="mt-3 max-w-[44ch] text-base leading-[1.65] text-muted lg:hidden">
               Tell us the workflow — we will open your email app with the details filled in.
             </p>
@@ -97,6 +101,7 @@ export default function ContactPage() {
             </div>
           </div>
         </Rise>
+        </div>
       </div>
     </section>
   );
