@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
 import { caseStudies, getCaseStudy } from "@/lib/work";
-import { contactBookHref } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
 
 export function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.slug }));
@@ -163,13 +163,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               worth building.
             </p>
             <div className="mt-9 flex justify-center">
-              <Link
-                href={contactBookHref}
-                className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-7 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover"
-              >
+              <BookCallCta variant="onDark" arrow className="w-auto">
                 Book a call
-                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-              </Link>
+              </BookCallCta>
             </div>
           </Rise>
         </div>

@@ -6,7 +6,7 @@ import { Rise } from "@/components/ui/rise";
 import { Cta } from "@/components/ui/button";
 import { services, getService } from "@/lib/services";
 import { caseStudies } from "@/lib/work";
-import { contactBookHref } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -210,13 +210,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               that you do not need us.
             </p>
             <div className="mt-9 flex justify-center">
-              <Link
-                href={contactBookHref}
-                className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-7 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover"
-              >
+              <BookCallCta variant="onDark" arrow className="w-auto">
                 Book a call
-                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-              </Link>
+              </BookCallCta>
             </div>
           </Rise>
         </div>

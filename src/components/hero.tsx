@@ -4,11 +4,10 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Cta } from "@/components/ui/button";
 import { ProductMock } from "@/components/product-mock";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { TiltFrame } from "@/components/ui/tilt-frame";
-import { contactBookHref } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
 import { duration, easeOut, fadeUpSoft, stagger } from "@/lib/motion";
 
 export function Hero() {
@@ -89,9 +88,9 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={enter} className="cta-stack mt-8 md:mt-10">
-            <Cta href={contactBookHref} className="max-[480px]:w-full">
+            <BookCallCta className="max-[480px]:w-full">
               Book a call
-            </Cta>
+            </BookCallCta>
             <Link
               href="/work"
               className="group press inline-flex min-h-12 items-center justify-center gap-1.5 rounded-full px-1 text-base text-muted underline-offset-[6px] transition-colors hover:text-text hover:underline max-[480px]:w-full max-[480px]:border max-[480px]:border-line max-[480px]:bg-surface/70 max-[480px]:px-5 max-[480px]:shadow-[var(--shadow-xs)]"

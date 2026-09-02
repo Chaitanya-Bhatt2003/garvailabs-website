@@ -1,8 +1,11 @@
 export const SITE = "https://garvailabs.com";
 
 /** Contact details taken from garvailabs.com/contact-us. */
-/** Book-a-call CTAs land on the request form (mobile shows it first). */
+/** Contact form anchor (write a request). */
 export const contactBookHref = "/contact#request";
+
+/** Full-page Cal.com calendar fallback. */
+export const calBookPath = "/book";
 
 export const site = {
   name: "GARV AI LABS",

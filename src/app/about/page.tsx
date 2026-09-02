@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
-import { Cta } from "@/components/ui/button";
-import { site, contactBookHref } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
+import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
@@ -193,9 +193,9 @@ export default function AboutPage() {
               </li>
             </ul>
             <div className="mt-9">
-              <Cta href={contactBookHref} arrow>
+              <BookCallCta arrow>
                 Book a call
-              </Cta>
+              </BookCallCta>
             </div>
           </Rise>
         </div>

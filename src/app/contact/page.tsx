@@ -3,7 +3,8 @@ import { Clock3, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
 import { ContactForm } from "@/components/contact-form";
 import { ContactRequestScroll } from "@/components/contact-scroll";
-import { site } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
+import { site, calBookPath } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -41,6 +42,19 @@ export default function ContactPage() {
               Bring one process your team keeps doing by hand. We will tell you what it would take
               to build, and say so plainly when it is not worth building.
             </p>
+          </Rise>
+
+          <Rise delay={0.17} from="up">
+            <div className="mt-8">
+              <BookCallCta arrow>Book a call</BookCallCta>
+              <p className="mt-3 text-sm text-muted">
+                Opens Cal.com in a new browser tab — pick a 15 or 30 minute slot. Or{" "}
+                <a href={calBookPath} className="font-medium text-accent-text hover:underline">
+                  book on this site
+                </a>
+                .
+              </p>
+            </div>
           </Rise>
 
           <Rise delay={0.2} from="up">

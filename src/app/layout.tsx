@@ -7,6 +7,8 @@ import { MobileCtaBar } from "@/components/mobile-cta";
 import { Providers } from "@/components/providers";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CursorGlow } from "@/components/cursor-glow";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { MicrosoftClarity } from "@/components/analytics/microsoft-clarity";
 import { site, SITE } from "@/lib/site";
 
 const outfit = Outfit({
@@ -99,6 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Providers>
+          <GoogleAnalytics />
+          <MicrosoftClarity />
           <ScrollProgress />
           <CursorGlow />
           <Nav />

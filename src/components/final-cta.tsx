@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Rise } from "@/components/ui/rise";
-import { Cta } from "@/components/ui/button";
-import { site, contactBookHref } from "@/lib/site";
+import { site } from "@/lib/site";
+import { BookCallCta } from "@/components/cal/book-call-button";
 import { easeOut } from "@/lib/motion";
 
 export function FinalCta() {
@@ -40,9 +39,9 @@ export function FinalCta() {
             </p>
 
             <div className="cta-stack mx-auto mt-10 max-w-md justify-center sm:max-w-none">
-              <Cta href={contactBookHref} className="max-[480px]:w-full">
+              <BookCallCta className="max-[480px]:w-full">
                 Book a call
-              </Cta>
+              </BookCallCta>
               <a
                 href={`mailto:${site.email}`}
                 className="press inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-dark-line px-7 text-base font-medium text-dark-text transition-colors duration-200 hover:bg-dark-soft max-[480px]:w-full"

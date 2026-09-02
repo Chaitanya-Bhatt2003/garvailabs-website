@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { contactBookHref } from "@/lib/site";
+import { BookCallButton } from "@/components/cal/book-call-button";
+import { calBookPath } from "@/lib/site";
 
 /**
  * Thumb-zone primary CTA on phones. Hidden on /contact, at the top of the
@@ -13,7 +13,7 @@ import { contactBookHref } from "@/lib/site";
 export function MobileCtaBar() {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-  const hideRoute = pathname.startsWith("/contact");
+  const hideRoute = pathname.startsWith("/contact") || pathname.startsWith(calBookPath);
 
   useEffect(() => {
     if (hideRoute) {
@@ -76,14 +76,13 @@ export function MobileCtaBar() {
       aria-hidden={!visible}
     >
       <div className="shell flex items-center gap-3 py-3">
-        <Link
-          href={contactBookHref}
+        <BookCallButton
           tabIndex={visible ? 0 : -1}
-          className="btn-primary press flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-accent px-5 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)]"
+          className="flex min-h-12 flex-1 px-5 text-base font-semibold"
         >
           Book a call
           <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
-        </Link>
+        </BookCallButton>
       </div>
     </div>
   );

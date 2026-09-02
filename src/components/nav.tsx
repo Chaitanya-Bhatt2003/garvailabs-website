@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
-import { nav, contactBookHref } from "@/lib/site";
+import { nav } from "@/lib/site";
+import { BookCallButton } from "@/components/cal/book-call-button";
 import { services } from "@/lib/services";
 import { duration, easeOut } from "@/lib/motion";
 
@@ -98,12 +99,9 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href={contactBookHref}
-            className="btn-primary press ml-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-base font-semibold text-on-accent shadow-[var(--shadow-sm)] transition-[background-color,box-shadow] duration-200 hover:bg-accent-hover"
-          >
+          <BookCallButton variant="nav" className="ml-3 w-auto shrink-0">
             Book a call
-          </Link>
+          </BookCallButton>
         </div>
 
         <button
@@ -179,12 +177,12 @@ export function Nav() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.18, duration: duration.base, ease: easeOut }}
               >
-                <Link
-                  href={contactBookHref}
-                  className="press mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-5 font-semibold text-on-accent"
+                <BookCallButton
+                  className="mt-4 w-full min-h-12 px-5 font-semibold"
+                  onClick={() => setOpen(false)}
                 >
                   Book a call
-                </Link>
+                </BookCallButton>
               </motion.div>
             </div>
           </motion.div>
