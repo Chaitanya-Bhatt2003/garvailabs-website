@@ -3,7 +3,7 @@ import { getClarityProjectId } from "@/lib/analytics/clarity";
 
 /**
  * Loads Microsoft Clarity after the page is interactive.
- * No-op until NEXT_PUBLIC_CLARITY_PROJECT_ID is set in .env.local
+ * Project ID configured in src/lib/analytics/clarity.ts
  */
 export function MicrosoftClarity() {
   const projectId = getClarityProjectId();

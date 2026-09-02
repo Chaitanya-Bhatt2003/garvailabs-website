@@ -38,50 +38,56 @@ export function buildMailDraft(to: string, subject: string, body: string): MailD
   };
 }
 
-/** Laptops/desktops often have no mailto handler (Brave, Chrome on Windows). */
+/** True on laptops/desktops — mailto often has no handler on Windows. */
 export function prefersWebCompose(): boolean {
   if (typeof window === "undefined") return true;
   return window.matchMedia("(pointer: fine)").matches;
 }
 
+/** Programmatic click on a transient anchor (keeps the current page intact). */
+function clickTransientLink(href: string, target?: "_blank"): void {
+  const link = document.createElement("a");
+  link.href = href;
+  if (target) {
+    link.target = target;
+    link.rel = "noopener noreferrer";
+  }
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
 /**
  * Open the system mail client via mailto.
- * Must run synchronously inside a click/submit handler (user gesture).
+ * Never uses window.location — that navigates the tab to a blank page in Brave/Chrome
+ * when no mail app is registered.
  */
 export function openMailClient(href: string): boolean {
   if (typeof window === "undefined") return false;
-
   try {
-    window.location.href = href;
+    clickTransientLink(href);
     return true;
   } catch {
-    try {
-      const link = document.createElement("a");
-      link.href = href;
-      link.style.display = "none";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      return true;
-    } catch {
-      return false;
-    }
+    return false;
   }
 }
 
-/** Open Gmail compose in a new tab — reliable on desktop browsers. */
+/** Open Gmail compose in a new tab. */
 export function openGmailCompose(href: string): boolean {
   if (typeof window === "undefined") return false;
-
-  const tab = window.open(href, "_blank", "noopener,noreferrer");
-  return tab !== null;
+  try {
+    clickTransientLink(href, "_blank");
+    return true;
+  } catch {
+    return false;
+  }
 }
 
+/** Always opens Gmail web compose — mailto: is unreliable in Chrome/Brave on Windows. */
 export function openDraft(draft: MailDraft): boolean {
   if (draft.tooLong) return false;
-  return prefersWebCompose()
-    ? openGmailCompose(draft.gmailHref)
-    : openMailClient(draft.mailtoHref);
+  return openGmailCompose(draft.gmailHref);
 }
 
 export function isMailtoWithinLimits(href: string): boolean {

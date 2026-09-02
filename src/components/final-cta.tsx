@@ -43,7 +43,9 @@ export function FinalCta() {
                 Book a call
               </BookCallCta>
               <a
-                href={`mailto:${site.email}`}
+                href={site.gmailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="press inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-dark-line px-7 text-base font-medium text-dark-text transition-colors duration-200 hover:bg-dark-soft max-[480px]:w-full"
               >
                 <Mail size={15} aria-hidden="true" />

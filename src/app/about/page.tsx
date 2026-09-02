@@ -165,7 +165,9 @@ export default function AboutPage() {
             <ul className="mt-7 flex flex-col gap-4 text-base md:text-md">
               <li>
                 <a
-                  href={`mailto:${site.email}`}
+                  href={site.gmailHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex min-h-11 items-center gap-3 transition-colors hover:text-accent-text"
                 >
                   <Mail size={16} className="shrink-0 text-accent" aria-hidden="true" />

@@ -71,7 +71,9 @@ export function Footer() {
               <ul className="mt-5 space-y-3.5 text-base">
                 <li>
                   <a
-                    href={`mailto:${site.email}`}
+                    href={site.gmailHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex min-h-8 items-center gap-2.5 text-dark-text/80 transition-colors hover:text-dark-text"
                   >
                     <Mail size={15} className="shrink-0 text-accent" aria-hidden="true" />

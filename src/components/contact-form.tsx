@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Check, Copy, Mail, MailOpen } from "lucide-react";
-import {
-  buildMailDraft,
-  openDraft,
-  openGmailCompose,
-  openMailClient,
-  prefersWebCompose,
-  type MailDraft,
-} from "@/lib/mailto";
+import { buildMailDraft, openDraft, type MailDraft } from "@/lib/mailto";
+import { site } from "@/lib/site";
 
 type Fields = { name: string; email: string; company: string; focus: string; message: string };
 type Errors = Partial<Record<keyof Fields, string>>;
@@ -80,13 +74,8 @@ export function ContactForm() {
   const [done, setDone] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openFailed, setOpenFailed] = useState(false);
-  const [useWebCompose, setUseWebCompose] = useState(false);
   const summary = useRef<HTMLDivElement>(null);
   const draftRef = useRef<MailDraft | null>(null);
-
-  useEffect(() => {
-    setUseWebCompose(prefersWebCompose());
-  }, []);
 
   const launchDraft = (draft: MailDraft) => {
     const opened = openDraft(draft);
@@ -137,15 +126,9 @@ export function ContactForm() {
               <span className="text-text">Copy the details below</span> and paste them into an email
               to {INBOX}.
             </>
-          ) : useWebCompose ? (
-            <>
-              A Gmail compose tab should have opened with your request filled in.{" "}
-              <span className="text-text">Press send there</span> and it reaches us — this page has no
-              backend, so nothing leaves your browser until you do.
-            </>
           ) : (
             <>
-              Your email app should have opened with the request already written.{" "}
+              A Gmail compose tab should have opened with your request filled in.{" "}
               <span className="text-text">Press send there</span> and it reaches us — this page has no
               backend, so nothing leaves your browser until you do.
             </>
@@ -156,7 +139,12 @@ export function ContactForm() {
           <p className="text-sm font-medium">If nothing opened</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
             Email{" "}
-            <a href={`mailto:${INBOX}`} className="text-accent-text underline underline-offset-4">
+            <a
+              href={site.gmailHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-text underline underline-offset-4"
+            >
               {INBOX}
             </a>{" "}
             and paste this in:
@@ -166,20 +154,23 @@ export function ContactForm() {
           </pre>
           {!draft.tooLong && (
             <div className="mt-4 flex flex-col gap-2.5">
-              <button
-                type="button"
-                onClick={() => openGmailCompose(draft.gmailHref)}
+              <a
+                href={draft.gmailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="press inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-on-accent shadow-[var(--shadow-sm)] transition-[background-color,box-shadow] hover:bg-accent-hover"
               >
                 <Mail size={14} aria-hidden="true" /> Compose in Gmail
-              </button>
-              <button
-                type="button"
-                onClick={() => openMailClient(draft.mailtoHref)}
+              </a>
+              <a
+                href={draft.gmailHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpenFailed(false)}
                 className="press inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-line bg-surface px-5 text-sm font-semibold text-text shadow-[var(--shadow-xs)] transition-[border-color,color,box-shadow] hover:border-accent/35 hover:text-accent-text"
               >
-                <Mail size={14} aria-hidden="true" /> Open email app
-              </button>
+                <Mail size={14} aria-hidden="true" /> Open Gmail again
+              </a>
             </div>
           )}
           <div className="mt-3">
@@ -209,10 +200,14 @@ export function ContactForm() {
           </div>
           {openFailed && !draft.tooLong && (
             <p className="mt-3 text-sm text-muted">
-              Pop-ups may be blocked — allow them for this site, or use{" "}
-              <span className="text-text">Compose in Gmail</span> above. You can also copy the details
-              or email{" "}
-              <a href={`mailto:${INBOX}`} className="text-accent-text underline underline-offset-4">
+              Could not open email automatically — use{" "}
+              <span className="text-text">Compose in Gmail</span> above, copy the details, or email{" "}
+              <a
+                href={site.gmailHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-text underline underline-offset-4"
+              >
                 {INBOX}
               </a>{" "}
               directly.
@@ -351,9 +346,7 @@ export function ContactForm() {
           <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
         </button>
         <p className="text-center text-sm text-muted sm:text-left">
-          {useWebCompose
-            ? "Opens Gmail in a new tab with the details filled in."
-            : "Opens your email app with the details filled in."}
+          Opens Gmail in a new tab with the details filled in.
         </p>
       </div>
     </form>

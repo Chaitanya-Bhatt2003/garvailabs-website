@@ -71,7 +71,9 @@ export default function ContactPage() {
           <Rise delay={0.24}>
             <div className="mt-10 space-y-3.5 border-t border-line pt-8 text-base">
               <a
-                href={`mailto:${site.email}`}
+                href={site.gmailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-accent-text"
               >
                 <Mail size={15} className="shrink-0 text-accent" aria-hidden="true" />
