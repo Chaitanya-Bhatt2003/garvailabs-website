@@ -14,7 +14,7 @@ export function buildMailtoHref(to: string, subject: string, body: string): stri
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-/** Gmail web compose — works in Brave/Chrome when no desktop mail app is set. */
+/** Gmail web compose — reliable on desktop Chrome/Brave when no mail app is set. */
 export function buildGmailComposeHref(to: string, subject: string, body: string): string {
   const params = new URLSearchParams({
     view: "cm",
@@ -38,7 +38,10 @@ export function buildMailDraft(to: string, subject: string, body: string): MailD
   };
 }
 
-/** True on laptops/desktops — mailto often has no handler on Windows. */
+/**
+ * True on laptops/desktops — mailto often has no handler on Windows.
+ * False on phones/tablets — mailto opens the native Gmail/mail app reliably.
+ */
 export function prefersWebCompose(): boolean {
   if (typeof window === "undefined") return true;
   return window.matchMedia("(pointer: fine)").matches;
@@ -52,20 +55,27 @@ function clickTransientLink(href: string, target?: "_blank"): void {
     link.target = target;
     link.rel = "noopener noreferrer";
   }
-  link.style.display = "none";
+  // Keep the node in-flow for iOS Safari; display:none clicks are flaky there.
+  link.setAttribute("aria-hidden", "true");
+  link.tabIndex = -1;
+  link.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;";
   document.body.appendChild(link);
   link.click();
   link.remove();
 }
 
 /**
- * Open the system mail client via mailto.
- * Never uses window.location — that navigates the tab to a blank page in Brave/Chrome
- * when no mail app is registered.
+ * Open the system / Gmail mail app via mailto.
+ * On mobile, location.assign is the most reliable handoff to the mail app.
+ * On desktop, never navigate the tab — use a transient click instead.
  */
 export function openMailClient(href: string): boolean {
   if (typeof window === "undefined") return false;
   try {
+    if (!prefersWebCompose()) {
+      window.location.assign(href);
+      return true;
+    }
     clickTransientLink(href);
     return true;
   } catch {
@@ -73,7 +83,7 @@ export function openMailClient(href: string): boolean {
   }
 }
 
-/** Open Gmail compose in a new tab. */
+/** Open Gmail compose in a new tab (desktop). */
 export function openGmailCompose(href: string): boolean {
   if (typeof window === "undefined") return false;
   try {
@@ -84,10 +94,15 @@ export function openGmailCompose(href: string): boolean {
   }
 }
 
-/** Always opens Gmail web compose — mailto: is unreliable in Chrome/Brave on Windows. */
+/**
+ * Desktop → Gmail web compose (mailto is unreliable in Chrome/Brave on Windows).
+ * Mobile → mailto (opens the phone's Gmail/mail app with the draft filled in).
+ */
 export function openDraft(draft: MailDraft): boolean {
   if (draft.tooLong) return false;
-  return openGmailCompose(draft.gmailHref);
+  return prefersWebCompose()
+    ? openGmailCompose(draft.gmailHref)
+    : openMailClient(draft.mailtoHref);
 }
 
 export function isMailtoWithinLimits(href: string): boolean {
