@@ -10,67 +10,12 @@ import { Rise } from "@/components/ui/rise";
 import { ScrollDrift } from "@/components/ui/scroll-drift";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Cta } from "@/components/ui/button";
-import { CountUp } from "@/components/ui/count-up";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-
-/** Figures below are drawn from the case studies, so they stay verifiable. */
-const proof = [
-  { value: "60%", label: "less time spent grading seed at procurement centres" },
-  { value: "80%", label: "fewer repeat submissions in government permitting" },
-  { value: "20%", label: "revenue lift from the dental assistant we built" },
-];
 
 export default function Home() {
   return (
     <>
       <Hero />
       <CapabilityRail />
-
-      {/* proof */}
-      <section className="mesh-soft border-b border-line">
-        <div className="shell py-12 md:py-16">
-          <Rise from="soft">
-            <p className="eyebrow">Proof from delivered work</p>
-          </Rise>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-10 md:gap-5 lg:grid-cols-3">
-            {proof.map((p, i) => (
-              <Rise
-                key={p.value}
-                delay={0.05 + i * 0.09}
-                from={i === 0 ? "left" : i === 2 ? "right" : "up"}
-              >
-                <SpotlightCard className="h-full">
-                  <Link
-                    href="/work"
-                    className="press card-lift group flex h-full flex-col rounded-xl border border-line bg-surface p-6 shadow-[var(--shadow-sm)] md:p-7"
-                  >
-                    <span className="num text-xs text-muted">0{i + 1}</span>
-                    <p className="num mt-3 text-4xl text-accent-text sm:text-5xl">
-                      <CountUp value={p.value} />
-                    </p>
-                    <p className="mt-3 max-w-[26ch] flex-1 text-base leading-snug text-muted">
-                      {p.label}
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text opacity-0 transition-opacity duration-200 group-hover:opacity-100 max-md:opacity-100">
-                      View cases
-                      <ArrowRight size={14} className="arrow-nudge" aria-hidden="true" />
-                    </span>
-                  </Link>
-                </SpotlightCard>
-              </Rise>
-            ))}
-          </div>
-          <Rise delay={0.28} from="soft">
-            <p className="mt-8 text-sm text-muted md:mt-10">
-              Measured on delivered projects.{" "}
-              <Link href="/work" className="link-soft text-accent-text">
-                See the case studies
-              </Link>
-              .
-            </p>
-          </Rise>
-        </div>
-      </section>
 
       {/* services */}
       <section id="services" className="band scroll-mt-20">
