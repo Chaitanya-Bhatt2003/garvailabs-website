@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-type Phase = "idle" | "covering" | "holding" | "revealing";
+type Phase = "idle" | "holding" | "revealing";
 
 type TransitionApi = {
   phase: Phase;
@@ -33,8 +33,7 @@ export function usePageTransitionOptional() {
   return useContext(TransitionContext);
 }
 
-/** Boot-only intro — 3s mosaic cover → hold → zoom-through reveal */
-const COVER_MS = 3000;
+/** Boot-only intro — starts at logo hold, then cinematic zoom-through (no mosaic cover) */
 const BOOT_HOLD_MS = 1200;
 const REVEAL_MS = 2200;
 const REVEAL_SETTLE_MS = 450;
@@ -75,10 +74,10 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     if (skip) return;
 
     started.current = true;
-    setPhase("covering");
+    // Skip the mosaic cover — cinematic begins when the logo appears.
+    setPhase("holding");
 
-    schedule(() => setPhase("holding"), COVER_MS);
-    schedule(() => setPhase("revealing"), COVER_MS + BOOT_HOLD_MS);
+    schedule(() => setPhase("revealing"), BOOT_HOLD_MS);
     schedule(() => {
       setPhase("idle");
       try {
@@ -86,7 +85,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       } catch {
         /* ignore */
       }
-    }, COVER_MS + BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS);
+    }, BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS);
 
     return clearTimers;
   }, []);
@@ -114,9 +113,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 }
 
 export const transitionTiming = {
-  coverMs: COVER_MS,
   revealMs: REVEAL_MS,
   revealSettleMs: REVEAL_SETTLE_MS,
   bootHoldMs: BOOT_HOLD_MS,
-  totalMs: COVER_MS + BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS,
+  totalMs: BOOT_HOLD_MS + REVEAL_MS + REVEAL_SETTLE_MS,
 } as const;

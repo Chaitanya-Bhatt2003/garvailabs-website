@@ -8,14 +8,14 @@ import { easeOut, easePremium } from "@/lib/motion";
 import { usePageTransitionOptional } from "@/components/transition/transition-provider";
 
 /**
- * Soft content settle — stays hidden during boot cover/hold so the intro reads cleanly.
+ * Soft content settle — stays hidden during logo hold so the intro reads cleanly.
  */
 export default function Template({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
   const transition = usePageTransitionOptional();
   const phase = transition?.phase ?? "idle";
-  const booting = phase === "covering" || phase === "holding";
+  const booting = phase === "holding";
   const revealing = phase === "revealing";
 
   useEffect(() => {
