@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Rise } from "@/components/ui/rise";
 import { site } from "@/lib/site";
 import { BookCallCta } from "@/components/cal/book-call-button";
+import { CompanyEmailLink } from "@/components/company-email-link";
 import { easeOut } from "@/lib/motion";
 
 export function FinalCta() {
@@ -42,15 +43,10 @@ export function FinalCta() {
               <BookCallCta className="max-[480px]:w-full">
                 Book a call
               </BookCallCta>
-              <a
-                href={site.gmailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="press inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-dark-line px-7 text-base font-medium text-dark-text transition-colors duration-200 hover:bg-dark-soft max-[480px]:w-full"
-              >
+              <CompanyEmailLink className="press inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-dark-line px-7 text-base font-medium text-dark-text transition-colors duration-200 hover:bg-dark-soft max-[480px]:w-full">
                 <Mail size={15} aria-hidden="true" />
                 Email us
-              </a>
+              </CompanyEmailLink>
             </div>
 
             <p className="mt-8 flex flex-col items-center gap-1 text-sm text-dark-muted sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-2 sm:gap-y-1">

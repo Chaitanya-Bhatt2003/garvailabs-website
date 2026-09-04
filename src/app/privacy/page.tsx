@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Rise } from "@/components/ui/rise";
+import { CompanyEmailLink } from "@/components/company-email-link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -22,14 +23,9 @@ const sections = [
         </p>
         <p>
           Contact:{" "}
-          <a
-            href={site.gmailHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-text underline underline-offset-4"
-          >
+          <CompanyEmailLink className="text-accent-text underline underline-offset-4">
             {site.email}
-          </a>{" "}
+          </CompanyEmailLink>{" "}
           · {site.phone}.
         </p>
       </>
@@ -242,14 +238,9 @@ const sections = [
       <>
         <p>
           Questions about privacy:{" "}
-          <a
-            href={site.gmailHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-text underline underline-offset-4"
-          >
+          <CompanyEmailLink className="text-accent-text underline underline-offset-4">
             {site.email}
-          </a>
+          </CompanyEmailLink>
           , or use the{" "}
           <Link href="/contact" className="text-accent-text underline underline-offset-4">
             contact page

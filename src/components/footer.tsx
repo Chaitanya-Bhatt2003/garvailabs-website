@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Wordmark } from "@/components/wordmark";
 import { Rise } from "@/components/ui/rise";
+import { CompanyEmailLink } from "@/components/company-email-link";
 import { services } from "@/lib/services";
 import { caseStudies } from "@/lib/work";
 import { site } from "@/lib/site";
@@ -70,15 +71,10 @@ export function Footer() {
               </h2>
               <ul className="mt-5 space-y-3.5 text-base">
                 <li>
-                  <a
-                    href={site.gmailHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-8 items-center gap-2.5 text-dark-text/80 transition-colors hover:text-dark-text"
-                  >
+                  <CompanyEmailLink className="flex min-h-8 items-center gap-2.5 text-dark-text/80 transition-colors hover:text-dark-text">
                     <Mail size={15} className="shrink-0 text-accent" aria-hidden="true" />
                     <span className="break-all">{site.email}</span>
-                  </a>
+                  </CompanyEmailLink>
                 </li>
                 <li>
                   <a

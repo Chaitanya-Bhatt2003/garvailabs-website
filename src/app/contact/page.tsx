@@ -4,6 +4,7 @@ import { Rise } from "@/components/ui/rise";
 import { ContactForm } from "@/components/contact-form";
 import { ContactRequestScroll } from "@/components/contact-scroll";
 import { BookCallCta } from "@/components/cal/book-call-button";
+import { CompanyEmailLink } from "@/components/company-email-link";
 import { site } from "@/lib/site";
 import { CAL_URL } from "@/lib/cal";
 
@@ -76,15 +77,10 @@ export default function ContactPage() {
 
           <Rise delay={0.24}>
             <div className="mt-10 space-y-3.5 border-t border-line pt-8 text-base">
-              <a
-                href={site.gmailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-accent-text"
-              >
+              <CompanyEmailLink className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-accent-text">
                 <Mail size={15} className="shrink-0 text-accent" aria-hidden="true" />
                 <span className="break-all">{site.email}</span>
-              </a>
+              </CompanyEmailLink>
               <a
                 href={`tel:${site.phoneHref}`}
                 className="flex min-h-11 items-center gap-2.5 transition-colors hover:text-accent-text"

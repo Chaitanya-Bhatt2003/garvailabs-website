@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Rise } from "@/components/ui/rise";
 import { BookCallCta } from "@/components/cal/book-call-button";
+import { CompanyEmailLink } from "@/components/company-email-link";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 
@@ -164,15 +165,10 @@ export default function AboutPage() {
             <h2 className="text-3xl">Where to find us</h2>
             <ul className="mt-7 flex flex-col gap-4 text-base md:text-md">
               <li>
-                <a
-                  href={site.gmailHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex min-h-11 items-center gap-3 transition-colors hover:text-accent-text"
-                >
+                <CompanyEmailLink className="flex min-h-11 items-center gap-3 transition-colors hover:text-accent-text">
                   <Mail size={16} className="shrink-0 text-accent" aria-hidden="true" />
                   <span className="break-all">{site.email}</span>
-                </a>
+                </CompanyEmailLink>
               </li>
               <li>
                 <a

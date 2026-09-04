@@ -12,7 +12,9 @@ export const calBookPath = "/book";
 export const site = {
   name: "GARV AI LABS",
   email: "garvailabs@gmail.com",
-  /** Gmail web compose — reliable in Chrome/Brave; mailto: often opens a blank tab on Windows. */
+  /** Native mail app — use on phones; mailto is reliable there. */
+  mailtoHref: "mailto:garvailabs@gmail.com",
+  /** Gmail web compose — reliable in Chrome/Brave on desktop Windows. */
   gmailHref: buildGmailComposeHref("garvailabs@gmail.com", "", ""),
   phone: "+91 92866 52872",
   phoneHref: "+919286652872",
