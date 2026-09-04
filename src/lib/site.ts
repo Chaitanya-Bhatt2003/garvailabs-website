@@ -6,7 +6,7 @@ export const SITE = "https://garvailabs.com";
 /** Contact form anchor (write a request). */
 export const contactBookHref = "/contact#request";
 
-/** Full-page Cal.com calendar fallback. */
+/** On-site booking page with embedded Cal.com calendar. */
 export const calBookPath = "/book";
 
 export const site = {
@@ -14,8 +14,8 @@ export const site = {
   email: "garvailabs@gmail.com",
   /** Gmail web compose — reliable in Chrome/Brave; mailto: often opens a blank tab on Windows. */
   gmailHref: buildGmailComposeHref("garvailabs@gmail.com", "", ""),
-  phone: "+91 97190 70711",
-  phoneHref: "+919719070711",
+  phone: "+91 92866 52872",
+  phoneHref: "+919286652872",
   address: {
     line1: "Noida",
     line2: "Gautam Buddha Nagar, Uttar Pradesh",

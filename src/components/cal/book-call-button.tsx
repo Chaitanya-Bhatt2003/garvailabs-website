@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef, type MouseEvent, type ReactNode } from "react";
+import Link from "next/link";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { CAL_URL } from "@/lib/cal";
+import { CAL_BOOK_PATH } from "@/lib/cal";
 import { springSnappy } from "@/lib/motion";
 
 type Variant = "primary" | "outline" | "dark" | "onDark" | "nav";
@@ -20,8 +21,7 @@ const variants: Record<Variant, string> = {
 };
 
 /**
- * Opens Cal.com in a new browser tab (Chrome, Edge, Safari, etc.).
- * Uses a real link so pop-up blockers never interfere.
+ * Navigates to the on-site booking page (/book) with the embedded calendar.
  */
 export function BookCallButton({
   children,
@@ -67,23 +67,21 @@ export function BookCallButton({
       style={reduce ? undefined : { x: sx, y: sy }}
       className={`inline-flex ${variant === "nav" ? "" : "max-[480px]:w-full"}`}
     >
-      <a
+      <Link
         ref={ref}
-        href={CAL_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={CAL_BOOK_PATH}
         tabIndex={tabIndex}
         onClick={onClick}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         className={`${baseClass} ${variant === "nav" ? "min-h-11 px-5" : "w-full"}`}
-        aria-label="Book a call with GARV AI LABS — opens Cal.com in a new tab"
+        aria-label="Book a call with GARV AI LABS — opens the booking calendar on this site"
       >
         {children}
         {arrow && (
           <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" className="arrow-nudge" />
         )}
-      </a>
+      </Link>
     </motion.div>
   );
 }

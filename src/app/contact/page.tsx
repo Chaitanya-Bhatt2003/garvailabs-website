@@ -4,12 +4,13 @@ import { Rise } from "@/components/ui/rise";
 import { ContactForm } from "@/components/contact-form";
 import { ContactRequestScroll } from "@/components/contact-scroll";
 import { BookCallCta } from "@/components/cal/book-call-button";
-import { site, calBookPath } from "@/lib/site";
+import { site } from "@/lib/site";
+import { CAL_URL } from "@/lib/cal";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Talk to GARV AI LABS about one real workflow. Noida, Uttar Pradesh, India. garvailabs@gmail.com · +91 97190 70711",
+    "Talk to GARV AI LABS about one real workflow. Noida, Uttar Pradesh, India. garvailabs@gmail.com · +91 92866 52872",
 };
 
 const agenda = [
@@ -48,9 +49,14 @@ export default function ContactPage() {
             <div className="mt-8">
               <BookCallCta arrow>Book a call</BookCallCta>
               <p className="mt-3 text-sm text-muted">
-                Opens Cal.com in a new browser tab — pick a 15 or 30 minute slot. Or{" "}
-                <a href={calBookPath} className="font-medium text-accent-text hover:underline">
-                  book on this site
+                Opens the booking calendar on this site — pick a 15 or 30 minute slot. Or{" "}
+                <a
+                  href={CAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent-text hover:underline"
+                >
+                  book on Cal.com
                 </a>
                 .
               </p>
